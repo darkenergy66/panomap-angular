@@ -2,17 +2,27 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
 
-## Development server
+## Development server****
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## # panomap-utils
+
+## Upload geotiff file to static raster tiles
+`upload-static.js tif_file_path mapbox_name`
+
+Uploads a geotif file and creates raster tiles on Mapbox`` scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` dir# panomap-utils
+
+## Upload geotiff file to static raster tiles
+`upload-static.js tif_file_path mapbox_name`
+
+Uploads a geotif file and creates raster tiles on Mapboxectory.
 
 ## Running unit tests
 

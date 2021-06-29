@@ -17,7 +17,6 @@ import { MapComponent } from './map/map.component';
     AppRoutingModule,
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1Ijoic29jcmF0YSIsImEiOiJjaXJxc2wzam0waGU5ZmZtODhqd2ttamdxIn0.1ZQEByXoDD7fGIa9lUHIqg', // Optional, can also be set per map (accessToken input of mgl-map)
-      geocoderAccessToken: 'TOKEN' // Optional, specify if different from the map access token, can also be set per mgl-geocoder (accessToken input of mgl-geocoder)
     })
   ],
   providers: [],
