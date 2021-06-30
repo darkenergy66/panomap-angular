@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
       [zoom]="[17]"
       [center]="[-2.037968774244869, 51.44730046289278]"
     >
+    <mgl-control mglNavigation></mgl-control>
     </mgl-map>
   `,
   styles: [

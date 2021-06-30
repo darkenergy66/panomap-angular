@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { MapComponent } from './map/map.component';
+import { ConsoleComponent } from './console/console.component';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    ConsoleComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
