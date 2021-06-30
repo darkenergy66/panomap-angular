@@ -2,20 +2,18 @@ import { Component } from '@angular/core';
 
 @Component({
   template: `
-    <div>------</div>
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
-      [zoom]="[9]"
-      [center]="[-74.5, 40]"
+      [style]="'mapbox://styles/mapbox/satellite-v9'"
+      [zoom]="[17]"
+      [center]="[-2.037968774244869, 51.44730046289278]"
     >
     </mgl-map>
-    <div>------</div>
   `,
   styles: [
     `
       mgl-map {
-        height: 600px;
-        width: 1000px;
+        height: 100%;
+        width: 100%;
       }
     `,
   ],
