@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  imagesBaseUrl: 'http://localhost:8080/',
   mapbox: {
     accessToken: 'pk.eyJ1Ijoic29jcmF0YSIsImEiOiJjaXJxc2wzam0waGU5ZmZtODhqd2ttamdxIn0.1ZQEByXoDD7fGIa9lUHIqg'
   }
