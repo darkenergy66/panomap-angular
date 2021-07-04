@@ -5,16 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-import { MapComponent } from './map/map.component';
 import { ConsoleComponent } from './console/console.component';
 import { PopupComponent } from './popup/popup.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent,
     ConsoleComponent,
-    PopupComponent
+    PopupComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
