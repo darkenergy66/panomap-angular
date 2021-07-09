@@ -1,3 +1,5 @@
+import {FeatureCollection} from "./images-geojson.interface";
+
 export interface Source {
   source: string;
   type: string;
@@ -22,6 +24,7 @@ export interface Map {
   key: string;
   title: string;
   description: string;
+  images: FeatureCollection;
   mapbox: Mapbox;
 }
 
