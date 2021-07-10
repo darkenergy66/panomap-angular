@@ -1,6 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 import { Maps, Source, Layer, Mapbox, Map } from './maps-list.interface';
 import { FeatureCollection, Feature, FeatureProperties, Crs, CrsProperties, Geometry } from './images-geojson.interface';
 
@@ -10,6 +11,8 @@ import { FeatureCollection, Feature, FeatureProperties, Crs, CrsProperties, Geom
 export class ImageDataService implements OnInit {
 
   private mapImages: any;
+  private dataSource = new BehaviorSubject<any>(null);
+  data$ = this.dataSource.asObservable();
 
   constructor(private http: HttpClient) {
     this.http.get<Maps>(environment.imagesBaseUrl + 'maps-list.json').toPromise().then(mapsList => {
@@ -19,6 +22,7 @@ export class ImageDataService implements OnInit {
         })
       }
       this.mapImages = mapsList;
+      this.dataSource.next(mapsList);
     });
   }
 
