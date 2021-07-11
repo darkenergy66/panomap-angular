@@ -33,4 +33,8 @@ export interface Maps {
   maps: Map[];
 }
 
-
+export interface MapMenu {
+  key: string;
+  title: string;
+  description: string;
+}

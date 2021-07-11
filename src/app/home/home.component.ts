@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.mapsSubscription = imageData.data$.subscribe(Maps => {
       if (Maps) {
         this.initMaps(Maps);
+        this.mapsSubscription?.unsubscribe();
       }
     })
   }
