@@ -7,6 +7,13 @@ export const environment = {
   imagesBaseUrl: 'http://localhost:8080/',
   mapbox: {
     accessToken: 'pk.eyJ1Ijoic29jcmF0YSIsImEiOiJjaXJxc2wzam0waGU5ZmZtODhqd2ttamdxIn0.1ZQEByXoDD7fGIa9lUHIqg'
+  },
+  init: {
+    map: {
+      style: 'mapbox://styles/mapbox/satellite-v9',
+      zoom: 2,
+      center: [0,0]
+    }
   }
 };
 

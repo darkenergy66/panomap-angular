@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ImageDataService } from '../image-data.service';
 import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+  mapParams = environment.init.map;
 
   mapsSubscription: Subscription;
 
