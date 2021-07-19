@@ -24,12 +24,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   {
     this.activatedRoute.paramMap.subscribe(params => {
       this.key = params.get('key');
-      console.log('key', this.key);
+      if (this.key) {
+        const thisMap = this.imageData.getMap<Map>(this.key);
+        if (thisMap && thisMap['mapbox']) {
+          this.showMap(thisMap);
+        }
+      }
     });
 
     this.mapsSubscription = imageData.data$.subscribe(Maps => {
       if (Maps) {
-        this.initMaps(Maps);
+        if (this.key) {
+          const thisMap = this.imageData.getMap<Map>(this.key);
+          if (thisMap && thisMap['mapbox']) {
+            this.showMap(thisMap);
+          }
+        }
         this.mapsSubscription?.unsubscribe();
       }
     })
@@ -42,8 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.mapsSubscription?.unsubscribe();
   }
 
-  initMaps(Maps: Maps) {
-    console.log('Maps', Maps);
-    console.log('hazeland-20210321', this.imageData.getMap<Map>('hazeland-20210124'));
+  // initMaps(Maps: Maps) {
+  //   console.log('Maps', Maps);
+  //   // console.log('hazeland-20210321', this.imageData.getMap<Map>('hazeland-20210124'));
+  // }
+
+  showMap(thisMap: Map) {
+    this.mapParams['center'] = thisMap.mapbox.center;
+    this.mapParams['zoom'] = thisMap.mapbox.zoom;
   }
 }

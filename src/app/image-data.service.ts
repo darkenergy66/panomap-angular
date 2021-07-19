@@ -10,7 +10,7 @@ import { FeatureCollection, Feature, FeatureProperties, Crs, CrsProperties, Geom
 })
 export class ImageDataService implements OnInit {
 
-  private mapImages: any;
+  private mapImages: any = {};
   private dataSource = new BehaviorSubject<any>(null);
   data$ = this.dataSource.asObservable();
 
@@ -33,11 +33,13 @@ export class ImageDataService implements OnInit {
     return this.mapImages;
   }
 
-  getMap<Map>(key: string) {
-    for (let map of this.mapImages.maps) {
-      if (map.key === key) {
-        return map;
-      }
+  getMap<Map>(key: string | null) {
+    if (key && this.mapImages['maps']) {
+        for (let map of this.mapImages.maps) {
+          if (map.key === key) {
+            return map;
+          }
+        }
     }
   }
 
