@@ -60,5 +60,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   showMap(thisMap: Map) {
     this.mapParams['center'] = thisMap.mapbox.center;
     this.mapParams['zoom'] = thisMap.mapbox.zoom;
+    this.mapParams['style'] = thisMap.mapbox.style;
+
+
+
+    // for (let i=0; i < thisMap.mapbox.sources.length; i++ ) {
+    //   const source = thisMap.mapbox.sources[i];
+    //   map.addSource(source.source,{
+    //     type: source.type,
+    //     url: source.url
+    //   });
+    // }
+    //
+    // for (let i=0; i < thisMap.mapbox.layers.length; i++ ) {
+    //   const layer = thisMap.mapbox.layers[i];
+    //   map.addLayer({
+    //     id: layer.id,
+    //     type: layer.type,
+    //     source: layer.source
+    //   });
+    // }
   }
 }

@@ -22,7 +22,7 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     AppRoutingModule,
     NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1Ijoic29jcmF0YSIsImEiOiJjaXJxc2wzam0waGU5ZmZtODhqd2ttamdxIn0.1ZQEByXoDD7fGIa9lUHIqg', // Optional, can also be set per map (accessToken input of mgl-map)
+      accessToken: 'pk.eyJ1IjoiaWFuY29sbGlzIiwiYSI6ImNqZXY2MHBnejBhdWUycXFjOXE1NmVyam8ifQ.4ZU6sWMHHmNzOG08U7luRQ', // Optional, can also be set per map (accessToken input of mgl-map)
     })
   ],
   providers: [],
