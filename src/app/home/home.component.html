@@ -4,9 +4,18 @@
   [center]="[mapParams.center[0], mapParams.center[1]]"
 >
   <mgl-control mglNavigation></mgl-control>
-  <mgl-raster-source id="hazeland-100721" url="mapbox://iancollis.hazeland-100721"></mgl-raster-source>
-  <mgl-layer id="raster-layer-RGB-iancollis-8iwnwpnb" type="raster" source="hazeland-100721"></mgl-layer>
-  <
+
+  <ng-container *ngFor="let source of thisMap?.mapbox?.sources">
+    <mgl-raster-source [id]="source.source" [url]="source.url"></mgl-raster-source>
+  </ng-container>
+
+  <ng-container *ngFor="let layer of thisMap?.mapbox?.layers">
+    <mgl-layer [id]="layer.id" [type]="layer.type" [source]="layer.source"></mgl-layer>
+  </ng-container>
+
 </mgl-map>
+
 <app-console id="home-console"></app-console>
+
+
 

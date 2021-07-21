@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   mapParams = environment.init.map;
   key: string | null = '';
+  thisMap: Map | null = null;
 
   mapsSubscription: Subscription;
 
@@ -25,9 +26,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.activatedRoute.paramMap.subscribe(params => {
       this.key = params.get('key');
       if (this.key) {
-        const thisMap = this.imageData.getMap<Map>(this.key);
-        if (thisMap && thisMap['mapbox']) {
-          this.showMap(thisMap);
+        this.thisMap = this.imageData.getMap<Map>(this.key);
+        if (this.thisMap && this.thisMap['mapbox']) {
+          this.showMap();
         }
       }
     });
@@ -35,9 +36,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.mapsSubscription = imageData.data$.subscribe(Maps => {
       if (Maps) {
         if (this.key) {
-          const thisMap = this.imageData.getMap<Map>(this.key);
-          if (thisMap && thisMap['mapbox']) {
-            this.showMap(thisMap);
+          this.thisMap = this.imageData.getMap<Map>(this.key);
+          if (this.thisMap && this.thisMap['mapbox']) {
+            this.showMap();
           }
         }
         this.mapsSubscription?.unsubscribe();
@@ -57,10 +58,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   //   // console.log('hazeland-20210321', this.imageData.getMap<Map>('hazeland-20210124'));
   // }
 
-  showMap(thisMap: Map) {
-    this.mapParams['center'] = thisMap.mapbox.center;
-    this.mapParams['zoom'] = thisMap.mapbox.zoom;
-    this.mapParams['style'] = thisMap.mapbox.style;
+  showMap() {
+    if (this.thisMap)
+      this.mapParams['center'] = this.thisMap?.mapbox.center || environment.init.map.center;
+      this.mapParams['zoom'] = this.thisMap?.mapbox.zoom || environment.init.map.zoom;
+      this.mapParams['style'] = this.thisMap?.mapbox.style || environment.init.map.style;
 
 
 

@@ -8,7 +8,7 @@ export interface Source {
 
 export interface Layer {
   id: string;
-  type: string;
+  type: "symbol" | "background" | "circle" | "fill-extrusion" | "fill" | "heatmap" | "hillshade" | "line" | "raster" | "custom" | "sky";
   source: string;
 }
 
