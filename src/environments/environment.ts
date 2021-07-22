@@ -14,6 +14,23 @@ export const environment = {
       zoom: 2,
       center: [0,0]
     }
+  },
+  formats: {
+    360: {
+      name: '360° Pano',
+      icon: '../icons/360-icon-30.png',
+      icon2: '../icons/360-icon-circle.png'
+    },
+    180: {
+      name: '180° Pano',
+      icon: '../icons/180-icon-30.png',
+      icon2: '../icons/180-icon-circle.png'
+    },
+    pic: {
+      name: 'Photo',
+      icon: '../icons/camera-icon-30.png',
+      icon2: '../icons/pic-icon-circle.png'
+    }
   }
 };
 

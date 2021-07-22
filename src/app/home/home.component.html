@@ -13,6 +13,12 @@
     <mgl-layer [id]="layer.id" [type]="layer.type" [source]="layer.source"></mgl-layer>
   </ng-container>
 
+  <ng-container *ngFor="let format of formats  | keyvalue">
+    <mgl-image [id]="format.key" [url]="format.value.icon" (imageLoaded)="imageLoaded()"></mgl-image>
+  </ng-container>
+
+>
+
 </mgl-map>
 
 <app-console id="home-console"></app-console>

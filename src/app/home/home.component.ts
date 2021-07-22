@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { ImageDataService } from '../image-data.service';
+;import { ImageDataService } from '../image-data.service';
 import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit, OnDestroy {
 
   mapParams = environment.init.map;
+  formats = environment.formats;
   key: string | null = '';
   thisMap: Map | null = null;
 
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private imageData: ImageDataService,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute: ActivatedRoute
   )
   {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -63,24 +64,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.mapParams['center'] = this.thisMap?.mapbox.center || environment.init.map.center;
       this.mapParams['zoom'] = this.thisMap?.mapbox.zoom || environment.init.map.zoom;
       this.mapParams['style'] = this.thisMap?.mapbox.style || environment.init.map.style;
+  }
 
+  imageLoaded() {
 
-
-    // for (let i=0; i < thisMap.mapbox.sources.length; i++ ) {
-    //   const source = thisMap.mapbox.sources[i];
-    //   map.addSource(source.source,{
-    //     type: source.type,
-    //     url: source.url
-    //   });
-    // }
-    //
-    // for (let i=0; i < thisMap.mapbox.layers.length; i++ ) {
-    //   const layer = thisMap.mapbox.layers[i];
-    //   map.addLayer({
-    //     id: layer.id,
-    //     type: layer.type,
-    //     source: layer.source
-    //   });
-    // }
   }
 }
