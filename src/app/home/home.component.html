@@ -5,6 +5,8 @@
 >
   <mgl-control mglNavigation></mgl-control>
 
+  <mgl-control mglScale unit="metric" position="bottom-right"></mgl-control>
+
   <ng-container *ngFor="let source of thisMap?.mapbox?.sources">
     <mgl-raster-source [id]="source.source" [url]="source.url"></mgl-raster-source>
   </ng-container>
@@ -14,8 +16,23 @@
   </ng-container>
 
   <ng-container *ngFor="let format of formats  | keyvalue">
-    <mgl-image [id]="format.key" [url]="format.value.icon" (imageLoaded)="imageLoaded()"></mgl-image>
+    <mgl-image [id]="format.key" [url]="format.value.marker" (imageLoaded)="imageLoaded(format.key)"></mgl-image>
   </ng-container>
+
+<!--  <mgl-geojson-source id="images" [cluster]="true" [clusterMaxZoom]="14" [clusterRadius]="50">-->
+<!--    <mgl-feature-->
+<!--      *ngFor="let feature of thisMap?.images?.features"-->
+<!--      [geometry]="feature.geometry"-->
+<!--    ></mgl-feature>-->
+<!--  </mgl-geojson-source>-->
+
+  <mgl-geojson-source
+    id="images"
+    [data]="thisMap?.images"
+    [cluster]="true"
+    [clusterMaxZoom]="14"
+    [clusterRadius]="50"
+  ></mgl-geojson-source>
 
 >
 

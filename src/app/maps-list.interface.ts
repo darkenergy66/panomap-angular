@@ -1,4 +1,9 @@
-import {FeatureCollection} from "./images-geojson.interface";
+// import {FeatureCollection} from "./images-geojson.interface";
+import {
+  GeoJSONSource,
+  GeoJSONSourceOptions,
+  GeoJSONSourceRaw,
+} from 'mapbox-gl';
 
 export interface Source {
   source: string;
@@ -24,7 +29,7 @@ export interface Map {
   key: string;
   title: string;
   description: string;
-  images: FeatureCollection;
+  images: GeoJSON.FeatureCollection;
   mapbox: Mapbox;
 }
 

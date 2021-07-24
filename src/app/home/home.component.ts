@@ -4,6 +4,7 @@ import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { GeoJSONSource } from 'mapbox-gl';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   formats = environment.formats;
   key: string | null = '';
   thisMap: Map | null = null;
+  formatKeys: any[];
+  markerImagesLoaded = false;
 
   mapsSubscription: Subscription;
 
@@ -24,10 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   )
   {
+    this.formatKeys = Object.keys(this.formats);
     this.activatedRoute.paramMap.subscribe(params => {
       this.key = params.get('key');
       if (this.key) {
         this.thisMap = this.imageData.getMap<Map>(this.key);
+        console.log('Specific map data loaded');
         if (this.thisMap && this.thisMap['mapbox']) {
           this.showMap();
         }
@@ -39,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (this.key) {
           this.thisMap = this.imageData.getMap<Map>(this.key);
           if (this.thisMap && this.thisMap['mapbox']) {
+            console.log('Initial map data loaded', this.thisMap);
             this.showMap();
           }
         }
@@ -66,7 +72,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.mapParams['style'] = this.thisMap?.mapbox.style || environment.init.map.style;
   }
 
-  imageLoaded() {
-
+  imageLoaded(key: any) {
+    console.log('loaded', key, 'formatKeys', this.formatKeys);
+    const index = this.formatKeys.indexOf(key)
+    if (index > -1) {
+      this.formatKeys.splice(index, 1);
+    }
+    if (this.formatKeys.length === 0) {
+      this.markerImagesLoaded = true;
+      console.log('Marker images loaded');
+    }
   }
 }

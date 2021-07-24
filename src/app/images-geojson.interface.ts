@@ -1,3 +1,9 @@
+import {
+  GeoJSONSource,
+  GeoJSONSourceOptions,
+  GeoJSONSourceRaw,
+} from 'mapbox-gl';
+
 export interface CrsProperties {
   name: string;
   baseAltitude: number;
@@ -23,20 +29,20 @@ export interface FeatureProperties {
   altitudeFeet: number;
 }
 
-export interface Geometry {
-  type: string;
-  coordinates: number[];
-}
+// export interface Geometry {
+//   type: string;
+//   coordinates: number[];
+// }
 
 export interface Feature {
   type: string;
   properties: FeatureProperties;
-  geometry: Geometry;
+  geometry: GeoJSON.Geometry;
 }
 
-export interface FeatureCollection {
-  type: string;
-  crs: Crs;
-  features: Feature[];
-}
+// export interface FeatureCollection {
+//   type: string;
+//   crs: Crs;
+//   features: Feature[];
+// }
 
