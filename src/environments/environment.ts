@@ -10,7 +10,7 @@ export const environment = {
   },
   init: {
     map: {
-      style: 'mapbox://styles/mapbox/satellite-v9',
+      style: 'mapbox://styles/iancollis/ckriy73rb0bj818qv7k2qourc',
       zoom: 2,
       center: [0,0]
     }

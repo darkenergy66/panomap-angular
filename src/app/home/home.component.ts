@@ -83,4 +83,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log('Marker images loaded');
     }
   }
+
+  // map.on('load', function () {
+  // }
 }
