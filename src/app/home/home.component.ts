@@ -4,7 +4,7 @@ import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { GeoJSONSource } from 'mapbox-gl';
+import { GeoJSONSource, Map as MapboxMap } from 'mapbox-gl';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   formats = environment.formats;
   key: string | null = '';
   thisMap: Map | null = null;
+  map: MapboxMap | null = null;
   formatKeys: any[];
   markerImagesLoaded = false;
 
@@ -60,10 +61,47 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.mapsSubscription?.unsubscribe();
   }
 
-  // initMaps(Maps: Maps) {
-  //   console.log('Maps', Maps);
-  //   // console.log('hazeland-20210321', this.imageData.getMap<Map>('hazeland-20210124'));
+  mapLoad(map: MapboxMap) {
+    this.map = map;
+    console.log('this.map>>', this.map);
+  }
+
+  // addImageSource() {
+  //   this.map?.addSource('images', {
+  //     type: 'geojson',
+  //     data: mapDir + '/images.geojson',
+  //     cluster: true,
+  //     clusterMaxZoom: 18, // Max zoom to cluster points on
+  //     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+  //   });
   // }
+
+
+  // addImageLayer() {
+  //   console.log('xxxxxxxxxxxx');
+  //   this.map?.addLayer({
+  //     'id': 'images',
+  //     'type': 'symbol',
+  //     'source': 'images',
+  //     'layout': {
+  //       'icon-image': [
+  //         'match',
+  //         ['get', 'format'],
+  //         '360',
+  //         'icon-360',
+  //         '180',
+  //         'icon-180',
+  //         'pic',
+  //         'icon-pic',
+  //         'icon-pic',
+  //       ]
+  //     },
+  //     'filter': ['all',['!has', 'point_count']]
+  //   });
+  // }
+
+
+
 
   showMap() {
     if (this.thisMap)
@@ -72,9 +110,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.mapParams['style'] = this.thisMap?.mapbox.style || environment.init.map.style;
   }
 
-  imageLoaded(key: any) {
-    console.log('loaded', key, 'formatKeys', this.formatKeys);
-    const index = this.formatKeys.indexOf(key)
+  imageLoaded(key: any, testId: any) {
+    console.log('xxxxloaded', key, 'formatKeys', this.formatKeys, 'id', testId);
+    const index = this.formatKeys.indexOf(key);
     if (index > -1) {
       this.formatKeys.splice(index, 1);
     }

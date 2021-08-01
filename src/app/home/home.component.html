@@ -2,24 +2,41 @@
   [style]="mapParams.style"
   [zoom]="[mapParams.zoom]"
   [center]="[mapParams.center[0], mapParams.center[1]]"
+  (mapLoad)="mapLoad($event)"
 >
   <mgl-control mglNavigation></mgl-control>
   <mgl-control mglFullscreen></mgl-control>
-  <mgl-control mglGeolocate [positionOptions]="{ enableHighAccuracy: true }" [trackUserLocation]="true" ></mgl-control>
+  <mgl-control mglGeolocate
+   [positionOptions]="{ enableHighAccuracy: true }"
+   [trackUserLocation]="true" >
+  </mgl-control>
 
-  <mgl-control mglScale unit="metric" position="bottom-right"></mgl-control>
+  <mgl-control mglScale
+   unit="metric"
+   position="bottom-right">
+  </mgl-control>
 
-  <ng-container *ngFor="let source of thisMap?.mapbox?.sources">
-    <mgl-raster-source [id]="source.source" [url]="source.url"></mgl-raster-source>
-  </ng-container>
+  <mgl-raster-source
+    *ngFor="let source of thisMap?.mapbox?.sources"
+    [id]="source.source"
+    [url]="source.url">
+  </mgl-raster-source>
 
-  <ng-container *ngFor="let layer of thisMap?.mapbox?.layers">
-    <mgl-layer [id]="layer.id" [type]="layer.type" [source]="layer.source"></mgl-layer>
-  </ng-container>
+  <mgl-layer
+    *ngFor="let layer of thisMap?.mapbox?.layers"
+    [id]="layer.id"
+    [type]="layer.type"
+    [source]="layer.source">
+  </mgl-layer>
 
   <ng-container *ngIf="thisMap?.images">
 
-    <mgl-geojson-source id="images" [data]="thisMap?.images" [cluster]="true" [clusterMaxZoom]="14" [clusterRadius]="50">
+    <mgl-geojson-source
+      id="images"
+      [data]="thisMap?.images"
+      [cluster]="true"
+      [clusterMaxZoom]="14"
+      [clusterRadius]="50">
     </mgl-geojson-source>
 
     <mgl-layer
@@ -41,7 +58,7 @@
               property: 'point_count',
               type: 'interval',
               stops: [
-                [0, 20],
+                [0, 15],
                 [100, 30],
                 [750, 40]
               ]
@@ -63,32 +80,32 @@
     >
     </mgl-layer>
 
-    <mgl-layer
-      id="unclustered-point"
-      type="circle"
-      source="images"
-      [filter]="['!has', 'point_count']"
-      [paint]="{
-        'circle-radius': 10,
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#fff',
-        'circle-color': [
-          'match',
-          ['get', 'format'],
-          '360',
-          '#51bbd6',
-          '180',
-          '#f1f075',
-          'pic',
-          '#f28cb1',
-          '#000000'
-          ]
-      }"
-    >
-    </mgl-layer>
-
 <!--    <mgl-layer-->
 <!--      id="unclustered-point"-->
+<!--      type="circle"-->
+<!--      source="images"-->
+<!--      [filter]="['!has', 'point_count']"-->
+<!--      [paint]="{-->
+<!--        'circle-radius': 15,-->
+<!--        'circle-stroke-width': 0,-->
+<!--        'circle-stroke-color': '#fff',-->
+<!--        'circle-color': [-->
+<!--          'match',-->
+<!--          ['get', 'format'],-->
+<!--          '360',-->
+<!--          '#51bbd6',-->
+<!--          '180',-->
+<!--          '#f1f075',-->
+<!--          'pic',-->
+<!--          '#f28cb1',-->
+<!--          '#000000'-->
+<!--          ]-->
+<!--      }"-->
+<!--    >-->
+<!--    </mgl-layer>-->
+
+<!--    <mgl-layer-->
+<!--      id="unclustered-count"-->
 <!--      type="symbol"-->
 <!--      source="images"-->
 <!--      [filter]="['!has', 'point_count']"-->
@@ -110,27 +127,31 @@
 
   </ng-container>
 
+  <mgl-image *ngFor="let format of formats  | keyvalue"
+             [id]="format.value['iconId']"
+             [url]="format.value.marker"
+             (imageLoaded)="imageLoaded(format.key, format.value['iconId'])">
+  </mgl-image>
 
-
-<!--  <ng-container *ngFor="let format of formats  | keyvalue">-->
-<!--    <mgl-image [id]="format.key" [url]="format.value.marker" (imageLoaded)="imageLoaded(format.key)"></mgl-image>-->
-<!--  </ng-container>-->
-
-<!--  <mgl-layer id="markers" type="symbol" source="images"-->
-<!--    [layout]="{-->
-<!--            'icon-image': [-->
-<!--                'match',-->
-<!--                ['get', 'format'],-->
-<!--                '360',-->
-<!--                'icon-360',-->
-<!--                '180',-->
-<!--                'icon-180',-->
-<!--                'pic',-->
-<!--                'icon-pic',-->
-<!--                'icon-pic',-->
-<!--            ]-->
-<!--        }"-->
-<!--  ></mgl-layer>-->
+  <mgl-layer *ngIf="markerImagesLoaded"
+     id="markers"
+     type="symbol"
+     source="images"
+     [layout]="{
+          'icon-image': [
+              'match',
+              ['get', 'format'],
+              '360',
+              'icon-360',
+              '180',
+              'icon-180',
+              'pic',
+              'icon-pic',
+              'icon-pic',
+          ]
+          }"
+     [filter]="['all',['!has', 'point_count']]"
+  ></mgl-layer>
 
 >
 
