@@ -35,8 +35,8 @@
       id="images"
       [data]="thisMap?.images"
       [cluster]="true"
-      [clusterMaxZoom]="14"
-      [clusterRadius]="50">
+      [clusterMaxZoom]="18"
+      [clusterRadius]="30">
     </mgl-geojson-source>
 
     <mgl-layer
@@ -49,9 +49,7 @@
               property: 'point_count',
               type: 'interval',
               stops: [
-                [0, '#51bbd6'],
-                [5, '#f1f075'],
-                [10, '#f28cb1']
+                [0, '#f1f075'],
               ]
             },
             'circle-radius': {
@@ -59,8 +57,10 @@
               type: 'interval',
               stops: [
                 [0, 15],
-                [100, 30],
-                [750, 40]
+                [5, 19],
+                [10, 22],
+                [15, 24],
+                [20, 25]
               ]
             }
           }"

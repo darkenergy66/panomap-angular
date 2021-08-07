@@ -1,10 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-;import { ImageDataService } from '../image-data.service';
+import { ImageDataService } from '../image-data.service';
 import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { GeoJSONSource, Map as MapboxMap } from 'mapbox-gl';
+// import * as spiderifier from "@bewithjonam/mapboxgl-spiderifierrifier";
+
+// import Supercluster from 'supercluster';
+// import { MapboxglSpiderfier } from '@bewithjonam/mapboxgl-spiderifier';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   map: MapboxMap | null = null;
   formatKeys: any[];
   markerImagesLoaded = false;
+  spiderifier: any;
 
   mapsSubscription: Subscription;
 
@@ -28,6 +33,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   )
   {
+    // this.spiderifier = new MapboxglSpiderifier(map, {
+    //   animate: true,
+    //   animationSpeed: 500,
+    //   // onClick: function(e, marker){
+    //   //   console.log(marker);
+    //   // },
+    //   circleSpiralSwitchover: 20,
+    //   circleFootSeparation: 27,
+    //   spiralFootSeparation: 35,
+      // initializeLeg: initializeSpiderLeg
+    // }),
+    // SPIDERFY_FROM_ZOOM = 10;
+
+
     this.formatKeys = Object.keys(this.formats);
     this.activatedRoute.paramMap.subscribe(params => {
       this.key = params.get('key');

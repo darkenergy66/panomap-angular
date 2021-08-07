@@ -32,8 +32,10 @@
             ],
             "styles": [
               "src/styles.scss",
+              "./node_modules/@bewithjonam/mapboxgl-spiderifier/lib/mapboxgl-spiderifier.css"
             ],
             "scripts": [
+              "./node_modules/@bewithjonam/mapboxgl-spiderifier/lib/mapboxgl-spiderifier.js"
             ]
           },
           "configurations": {
