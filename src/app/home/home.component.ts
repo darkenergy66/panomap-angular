@@ -4,7 +4,7 @@ import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { GeoJSONSource, Map as MapboxMap } from 'mapbox-gl';
+import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Marker } from 'mapbox-gl';
 // import * as spiderifier from "@bewithjonam/mapboxgl-spiderifierrifier";
 
 // import Supercluster from 'supercluster';
@@ -25,6 +25,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   formatKeys: any[];
   markerImagesLoaded = false;
   spiderifier: any;
+  cursorStyle = 'default';
+  SPIDERFY_FROM_ZOOM = 10;
+  popupFeature: GeoJSON.Feature<GeoJSON.Point> | undefined = undefined;
+  popupHtml = '';
 
   mapsSubscription: Subscription;
 
@@ -130,7 +134,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   imageLoaded(key: any, testId: any) {
-    console.log('xxxxloaded', key, 'formatKeys', this.formatKeys, 'id', testId);
+    console.log('loaded', key, 'formatKeys', this.formatKeys, 'id', testId);
     const index = this.formatKeys.indexOf(key);
     if (index > -1) {
       this.formatKeys.splice(index, 1);
@@ -138,6 +142,53 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.formatKeys.length === 0) {
       this.markerImagesLoaded = true;
       console.log('Marker images loaded');
+    }
+  }
+
+  imageClick(e: MapLayerMouseEvent) {
+    console.log('imageClick event', e);
+  }
+
+  clusterClick(e: MapLayerMouseEvent) {
+    const features: any = this.map?.queryRenderedFeatures(e.point, {
+      layers: ['clusters']
+    });
+    if (!features?.length) {
+      return;
+    } else {
+      if (features[0]['properties']['cluster']) {
+        if (this.map && this.map?.getZoom() < this.SPIDERFY_FROM_ZOOM) {
+          this.map?.easeTo({center: e.lngLat, zoom: this.map?.getZoom() + 2});
+        } else {
+          const source: mapboxgl.GeoJSONSource = this.map?.getSource('images') as mapboxgl.GeoJSONSource
+          this.popupFeature = features[0];
+
+          this.popupHtml = '<h1>TEST</h1>';
+
+
+          source.getClusterLeaves(
+            features[0].properties.cluster_id,
+            100,
+            0,
+            function(err, leafFeatures){
+              if (err) {
+                return console.error('error while getting leaves of a cluster', err);
+              }
+              console.log('leafFeatures', leafFeatures);
+
+              // const popup = new mapboxgl.Popup({ closeOnClick: false })
+              //   .setLngLat([-96, 37.8])
+              //   .setHTML('<h1>Hello World!</h1>')
+              //   .addTo(map);
+
+              // var markers = _.map(leafFeatures, function(leafFeature){
+              //   return leafFeature.properties;
+              // });
+              // spiderifier.spiderfy(features[0].geometry.coordinates, markers);
+            }
+          );
+        }
+      }
     }
   }
 

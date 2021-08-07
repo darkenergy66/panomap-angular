@@ -3,6 +3,7 @@
   [zoom]="[mapParams.zoom]"
   [center]="[mapParams.center[0], mapParams.center[1]]"
   (mapLoad)="mapLoad($event)"
+  [cursorStyle]="cursorStyle"
 >
   <mgl-control mglNavigation></mgl-control>
   <mgl-control mglFullscreen></mgl-control>
@@ -43,6 +44,9 @@
       id="clusters"
       type="circle"
       source="images"
+      (layerMouseEnter)="cursorStyle = 'pointer'"
+      (layerMouseLeave)="cursorStyle = 'default'"
+      (layerClick)="clusterClick($event)"
       [filter]="['has', 'point_count']"
       [paint]="{
             'circle-color': {
@@ -56,11 +60,16 @@
               property: 'point_count',
               type: 'interval',
               stops: [
-                [0, 15],
-                [5, 19],
-                [10, 22],
-                [15, 24],
-                [20, 25]
+                [0, 17],
+                [5, 18],
+                [6, 19],
+                [7, 20],
+                [8, 21],
+                [9, 22],
+                [10, 23],
+                [12, 24],
+                [15, 25],
+                [20, 27],
               ]
             }
           }"
@@ -137,6 +146,9 @@
      id="markers"
      type="symbol"
      source="images"
+     (layerMouseEnter)="cursorStyle = 'pointer'"
+     (layerMouseLeave)="cursorStyle = 'default'"
+     (layerClick)="imageClick($event)"
      [layout]="{
           'icon-image': [
               'match',
@@ -154,6 +166,11 @@
   ></mgl-layer>
 
 >
+
+<mgl-popup
+  [closeButton]="false"
+  [closeOnClick]="true"
+  [feature]="popupFeature">{{ popupHtml }}</mgl-popup>
 
 </mgl-map>
 
