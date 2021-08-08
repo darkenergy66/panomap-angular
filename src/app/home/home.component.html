@@ -170,7 +170,11 @@
 <mgl-popup
   [closeButton]="false"
   [closeOnClick]="true"
-  [feature]="popupFeature">{{ popupHtml }}</mgl-popup>
+  [feature]="popupFeature"
+  [offset]="12"
+>
+  <div [innerHTML]="popupHtml"></div>
+</mgl-popup>
 
 </mgl-map>
 

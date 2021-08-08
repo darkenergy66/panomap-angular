@@ -150,6 +150,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   clusterClick(e: MapLayerMouseEvent) {
+    this.popupHtml = 'Loading...';
     const features: any = this.map?.queryRenderedFeatures(e.point, {
       layers: ['clusters']
     });
@@ -163,28 +164,29 @@ export class HomeComponent implements OnInit, OnDestroy {
           const source: mapboxgl.GeoJSONSource = this.map?.getSource('images') as mapboxgl.GeoJSONSource
           this.popupFeature = features[0];
 
-          this.popupHtml = '<h1>TEST</h1>';
-
-
           source.getClusterLeaves(
             features[0].properties.cluster_id,
             100,
             0,
-            function(err, leafFeatures){
+            (err, leafFeatures) => {
               if (err) {
                 return console.error('error while getting leaves of a cluster', err);
               }
+
+              let html = '<ul class="cluster-popup-list">';
+              leafFeatures.forEach( feature => {
+                html += '<li>';
+                // @ts-ignore
+                html += '<img src="' + this.formats[feature?.properties?.format].icon + '">';
+                html += '<span>' + feature?.properties?.taken + '</span>';
+                html += '</li>';
+              })
+              this.popupHtml += '</ul>';
+
+              this.popupHtml = html;
+
               console.log('leafFeatures', leafFeatures);
 
-              // const popup = new mapboxgl.Popup({ closeOnClick: false })
-              //   .setLngLat([-96, 37.8])
-              //   .setHTML('<h1>Hello World!</h1>')
-              //   .addTo(map);
-
-              // var markers = _.map(leafFeatures, function(leafFeature){
-              //   return leafFeature.properties;
-              // });
-              // spiderifier.spiderfy(features[0].geometry.coordinates, markers);
             }
           );
         }
