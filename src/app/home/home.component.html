@@ -89,51 +89,6 @@
     >
     </mgl-layer>
 
-<!--    <mgl-layer-->
-<!--      id="unclustered-point"-->
-<!--      type="circle"-->
-<!--      source="images"-->
-<!--      [filter]="['!has', 'point_count']"-->
-<!--      [paint]="{-->
-<!--        'circle-radius': 15,-->
-<!--        'circle-stroke-width': 0,-->
-<!--        'circle-stroke-color': '#fff',-->
-<!--        'circle-color': [-->
-<!--          'match',-->
-<!--          ['get', 'format'],-->
-<!--          '360',-->
-<!--          '#51bbd6',-->
-<!--          '180',-->
-<!--          '#f1f075',-->
-<!--          'pic',-->
-<!--          '#f28cb1',-->
-<!--          '#000000'-->
-<!--          ]-->
-<!--      }"-->
-<!--    >-->
-<!--    </mgl-layer>-->
-
-<!--    <mgl-layer-->
-<!--      id="unclustered-count"-->
-<!--      type="symbol"-->
-<!--      source="images"-->
-<!--      [filter]="['!has', 'point_count']"-->
-<!--      [layout]="{-->
-<!--            'icon-image': [-->
-<!--                'match',-->
-<!--                ['get', 'format'],-->
-<!--                '360',-->
-<!--                '360_black_24dp',-->
-<!--                '180',-->
-<!--                'panorama_horizontal_black_24dp',-->
-<!--                'pic',-->
-<!--                'crop_original_black_24dp',-->
-<!--                'crop_original_black_24dp',-->
-<!--            ]-->
-<!--          }"-->
-<!--    >-->
-<!--    </mgl-layer>-->
-
   </ng-container>
 
   <mgl-image *ngFor="let format of formats  | keyvalue"
