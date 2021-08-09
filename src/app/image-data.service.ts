@@ -44,4 +44,8 @@ export class ImageDataService implements OnInit {
     }
   }
 
+  getBaseUrl() {
+    return environment.imagesBaseUrl;
+  }
+
 }

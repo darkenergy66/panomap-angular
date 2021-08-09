@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Marker } from 'mapbox-gl';
+import { Feature } from "../images-geojson.interface";
+import panzoom from "panzoom";
 
 @Component({
   selector: 'app-home',
@@ -94,7 +96,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   imageClick(e: MapLayerMouseEvent) {
-    console.log('imageClick event', e);
+    const features: any = this.map?.queryRenderedFeatures(e.point, {
+      layers: ['markers']
+    });
+    if (!features?.length) {
+      return;
+    } else {
+      this.buildModal(features[0]);
+    }
   }
 
   clusterClick(e: MapLayerMouseEvent) {
@@ -134,15 +143,14 @@ export class HomeComponent implements OnInit, OnDestroy {
               this.popupHtml = html;
               this.ref.detectChanges();
 
-              let imageLinks = this.elementRef.nativeElement.querySelectorAll('.cluster-popup-list-item');
-              imageLinks.forEach( (imageLink: {
-                addEventListener: (arg0: string, arg1: () => void) => void;
-              }) => {
-                imageLink.addEventListener('click', this.onFeatureClick.bind(this));
-              });
+              let imageNodeList: NodeList = this.elementRef.nativeElement.querySelectorAll('.cluster-popup-list-item');
 
-              console.log('leafFeatures', leafFeatures);
-
+              for (let i = 0; i < imageNodeList.length; i++) {
+                // @ts-ignore
+                imageNodeList[i].addEventListener("click", ($event) => {
+                  this.onFeatureClick(leafFeatures[i])
+                });
+              }
             }
           );
         }
@@ -150,8 +158,69 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFeatureClick() {
-    console.log('onFeatureClick', this);
-    this.elementRef.nativeElement.querySelector('.cluster-popup-list-item').removeEventListener('click');
+  onFeatureClick(feature: any) {
+    this.buildModal(feature);
+    // this.elementRef.nativeElement.querySelector('.cluster-popup-list-item').removeEventListener('click', this.onFeatureClick);
   }
+
+  buildModal(feature: any) {
+    console.log('feature', feature);
+
+    let imagePath = environment.imagesBaseUrl + this.key + '/' + feature.properties.id + ".jpg";
+    console.log('imagePath', imagePath);
+    let imageTitle = feature.properties.id + ".jpg";
+    let downloadFile = imagePath;
+
+    // let header = document.getElementById('image-modal-header');
+    // let headerHtml = '<img src="' + formats[feature.format].icon + '"><h5>' + formats[feature.format].name + '</h5>';
+    // headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+    // header.innerHTML = headerHtml;
+    //
+    // let body = document.getElementById('image-modal-body');
+    // let bodyHtml = '<div class="row pb-1">';
+    // bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + feature.taken + '</div>';
+    // bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + feature.longitude + ', ' + feature.latitude + '&nbsp;&nbsp;&nbsp;';
+    // bodyHtml += '<span class="popup-label">Altitude: </span>' + feature.altitudeFeet + 'ft</div>';
+    // bodyHtml += '</div>';
+    //
+    // switch (feature.format) {
+    //   case '360':
+    //     bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
+    //     bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
+    //     bodyHtml += 'src="https://kuula.co/share/' + feature.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
+    //     break;
+    //   case '180':
+    //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+    //     break;
+    //   default:
+    //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+    //     break;
+    // }
+    // body.innerHTML = bodyHtml;
+    //
+    // let imageModal = new bootstrap.Modal(document.getElementById('image-modal'), {
+    //   keyboard: false
+    // })
+    // panzoom = Panzoom(document.getElementById('modal-image'));
+    // panzoom.setOptions({ minScale: 1, maxScale: 10 })
+    //
+    // let zoomButtons = document.getElementsByClassName('image-zoom');
+    // for (let i = 0; i < zoomButtons.length; i++) {
+    //   if (feature.format == '360') {
+    //     zoomButtons[i].classList.add('invisible');
+    //   } else {
+    //     zoomButtons[i].classList.remove('invisible');
+    //   }
+    // }
+    // imageModal.show();;
+  }
+
+  openFullscreen() {
+
+  }
+
+  download() {
+
+  }
+
 }

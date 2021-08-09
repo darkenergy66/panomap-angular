@@ -1637,6 +1637,13 @@
   "resolved" "https://registry.npmjs.org/alphanum-sort/-/alphanum-sort-1.0.2.tgz"
   "version" "1.0.2"
 
+"amator@^1.1.0":
+  "integrity" "sha1-CMa2C8k67Cthu/wMTWd9MDI8wPE="
+  "resolved" "https://registry.npmjs.org/amator/-/amator-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "bezier-easing" "^2.0.3"
+
 "ansi-colors@^3.0.0":
   "integrity" "sha512-hHUXGagefjN2iRrID63xckIvotOXOojhQKWIPUZ4mNUZ9nLZW+7FMNoE1lOkEhNWYsx/7ysGIuJYCiMAA9FnrA=="
   "resolved" "https://registry.npmjs.org/ansi-colors/-/ansi-colors-3.2.4.tgz"
@@ -1928,6 +1935,11 @@
   "version" "1.0.2"
   dependencies:
     "tweetnacl" "^0.14.3"
+
+"bezier-easing@^2.0.3":
+  "integrity" "sha1-wE3+i5JtbsrKGBPWn/F5t8ICXYY="
+  "resolved" "https://registry.npmjs.org/bezier-easing/-/bezier-easing-2.1.0.tgz"
+  "version" "2.1.0"
 
 "big.js@^5.2.2":
   "integrity" "sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ=="
@@ -5074,6 +5086,11 @@
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
 
+"ngraph.events@^1.2.1":
+  "integrity" "sha512-D4C+nXH/RFxioGXQdHu8ELDtC6EaCiNsZtih0IvyGN81OZSUby4jXoJ5+RNWasfsd0FnKxxpAROyUMzw64QNsw=="
+  "resolved" "https://registry.npmjs.org/ngraph.events/-/ngraph.events-1.2.1.tgz"
+  "version" "1.2.1"
+
 "ngx-mapbox-gl@^7.0.1":
   "integrity" "sha512-wydY5kXEHTQtkX/XKnltzRO+MHsyPwCUd/Gi8bXQYxTj8efiBJt+GzpZMO3BvmddXXA0w5bK1cvovqOOD7nFVA=="
   "resolved" "https://registry.npmjs.org/ngx-mapbox-gl/-/ngx-mapbox-gl-7.0.1.tgz"
@@ -5458,6 +5475,15 @@
     "rimraf" "^3.0.2"
     "ssri" "^8.0.1"
     "tar" "^6.1.0"
+
+"panzoom@^9.4.2":
+  "integrity" "sha512-sQLr0t6EmNFXpZHag0HQVtOKqF9xjF7iZdgWg3Ss1o7uh2QZLvcrz7S0Cl8M0d2TkPZ69JfPJdknXN3I0e/2aQ=="
+  "resolved" "https://registry.npmjs.org/panzoom/-/panzoom-9.4.2.tgz"
+  "version" "9.4.2"
+  dependencies:
+    "amator" "^1.1.0"
+    "ngraph.events" "^1.2.1"
+    "wheel" "^1.0.0"
 
 "parent-module@^1.0.0":
   "integrity" "sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g=="
@@ -7962,6 +7988,11 @@
   "integrity" "sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg=="
   "resolved" "https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.4.tgz"
   "version" "0.1.4"
+
+"wheel@^1.0.0":
+  "integrity" "sha512-XiCMHibOiqalCQ+BaNSwRoZ9FDTAvOsXxGHXChBugewDj7HC8VBIER71dEOiRH1fSdLbRCQzngKTSiZ06ZQzeA=="
+  "resolved" "https://registry.npmjs.org/wheel/-/wheel-1.0.0.tgz"
+  "version" "1.0.0"
 
 "which-module@^2.0.0":
   "integrity" "sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho="
