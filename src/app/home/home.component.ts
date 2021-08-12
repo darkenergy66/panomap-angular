@@ -16,7 +16,7 @@ import panzoom from "panzoom";
 export class HomeComponent implements OnInit, OnDestroy {
 
   mapParams = environment.init.map;
-  formats = environment.formats;
+  formats: any = environment.formats;
   key: string | null = '';
   thisMap: Map | null = null;
   map: MapboxMap | null = null;
@@ -171,48 +171,52 @@ export class HomeComponent implements OnInit, OnDestroy {
     let imageTitle = feature.properties.id + ".jpg";
     let downloadFile = imagePath;
 
-    // let header = document.getElementById('image-modal-header');
-    // let headerHtml = '<img src="' + formats[feature.format].icon + '"><h5>' + formats[feature.format].name + '</h5>';
-    // headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-    // header.innerHTML = headerHtml;
-    //
-    // let body = document.getElementById('image-modal-body');
-    // let bodyHtml = '<div class="row pb-1">';
-    // bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + feature.taken + '</div>';
-    // bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + feature.longitude + ', ' + feature.latitude + '&nbsp;&nbsp;&nbsp;';
-    // bodyHtml += '<span class="popup-label">Altitude: </span>' + feature.altitudeFeet + 'ft</div>';
-    // bodyHtml += '</div>';
-    //
-    // switch (feature.format) {
-    //   case '360':
-    //     bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
-    //     bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
-    //     bodyHtml += 'src="https://kuula.co/share/' + feature.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
-    //     break;
-    //   case '180':
-    //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-    //     break;
-    //   default:
-    //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-    //     break;
-    // }
-    // body.innerHTML = bodyHtml;
-    //
-    // let imageModal = new bootstrap.Modal(document.getElementById('image-modal'), {
-    //   keyboard: false
-    // })
-    // panzoom = Panzoom(document.getElementById('modal-image'));
-    // panzoom.setOptions({ minScale: 1, maxScale: 10 })
-    //
-    // let zoomButtons = document.getElementsByClassName('image-zoom');
-    // for (let i = 0; i < zoomButtons.length; i++) {
-    //   if (feature.format == '360') {
-    //     zoomButtons[i].classList.add('invisible');
-    //   } else {
-    //     zoomButtons[i].classList.remove('invisible');
-    //   }
-    // }
-    // imageModal.show();;
+    let header = document.getElementById('image-modal-header');
+    if (header) {
+
+      let headerHtml = '<img src="' + this.formats[feature.format].icon + '"><h5>' + this.formats[feature.format].name + '</h5>';
+      headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+      header.innerHTML = headerHtml;
+      //
+      // let body = document.getElementById('image-modal-body');
+      // let bodyHtml = '<div class="row pb-1">';
+      // bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + feature.taken + '</div>';
+      // bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + feature.longitude + ', ' + feature.latitude + '&nbsp;&nbsp;&nbsp;';
+      // bodyHtml += '<span class="popup-label">Altitude: </span>' + feature.altitudeFeet + 'ft</div>';
+      // bodyHtml += '</div>';
+      //
+      // switch (feature.format) {
+      //   case '360':
+      //     bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
+      //     bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
+      //     bodyHtml += 'src="https://kuula.co/share/' + feature.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
+      //     break;
+      //   case '180':
+      //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+      //     break;
+      //   default:
+      //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+      //     break;
+      // }
+      // body.innerHTML = bodyHtml;
+      //
+      // let imageModal = new bootstrap.Modal(document.getElementById('image-modal'), {
+      //   keyboard: false
+      // })
+      // panzoom = Panzoom(document.getElementById('modal-image'));
+      // panzoom.setOptions({ minScale: 1, maxScale: 10 })
+      //
+      // let zoomButtons = document.getElementsByClassName('image-zoom');
+      // for (let i = 0; i < zoomButtons.length; i++) {
+      //   if (feature.format == '360') {
+      //     zoomButtons[i].classList.add('invisible');
+      //   } else {
+      //     zoomButtons[i].classList.remove('invisible');
+      //   }
+      // }
+      // imageModal.show();;
+    }
+
   }
 
   openFullscreen() {

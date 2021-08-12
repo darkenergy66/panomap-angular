@@ -1101,11 +1101,6 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     "to-fast-properties" "^2.0.0"
 
-"@bewithjonam/mapboxgl-spiderifier@^1.0.6":
-  "integrity" "sha512-lWfVeW+ISFmuLjTO/zVV7+x0ipb9rWbw9GOviYYEm1K8vF/Y1WWifm1bICfQKGZgA+jrWy05sz8HbmIlrF2Q0g=="
-  "resolved" "https://registry.npmjs.org/@bewithjonam/mapboxgl-spiderifier/-/mapboxgl-spiderifier-1.0.6.tgz"
-  "version" "1.0.6"
-
 "@csstools/convert-colors@^1.4.0":
   "integrity" "sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw=="
   "resolved" "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz"

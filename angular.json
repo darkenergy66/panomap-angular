@@ -31,11 +31,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "./node_modules/@bewithjonam/mapboxgl-spiderifier/lib/mapboxgl-spiderifier.css"
+              "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/@bewithjonam/mapboxgl-spiderifier/lib/mapboxgl-spiderifier.js"
             ]
           },
           "configurations": {
