@@ -15,26 +15,29 @@ export const environment = {
       center: [0,0]
     }
   },
-  formats: {
-    360: {
+  imageFormats : [
+    {
+      key: '360',
       name: '360° Pano',
       icon: 'assets/icons/360-icon-30.png',
       iconId: 'icon-360',
       marker: 'assets/icons/360-icon-circle.png'
     },
-    180: {
+    {
+      key: '180',
       name: '180° Pano',
       icon: 'assets/icons/180-icon-30.png',
       iconId: 'icon-180',
       marker: 'assets/icons/180-icon-circle.png'
     },
-    pic: {
+    {
+      key: 'pic',
       name: 'Photo',
       icon: 'assets/icons/camera-icon-30.png',
       iconId: 'icon-pic',
       marker: 'assets/icons/pic-icon-circle.png'
     }
-  }
+  ],
 };
 
 /*

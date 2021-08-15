@@ -9,6 +9,9 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { ConsoleComponent } from './console/console.component';
 import { PopupComponent } from './popup/popup.component';
 import { HomeComponent } from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1IjoiaWFuY29sbGlzIiwiYSI6ImNqZXY2MHBnejBhdWUycXFjOXE1NmVyam8ifQ.4ZU6sWMHHmNzOG08U7luRQ', // Optional, can also be set per map (accessToken input of mgl-map)
-    })
+    }),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

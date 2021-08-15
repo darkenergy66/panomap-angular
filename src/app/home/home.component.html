@@ -91,11 +91,12 @@
 
   </ng-container>
 
-  <mgl-image *ngFor="let format of formats  | keyvalue"
-             [id]="format['value']['iconId']"
-             [url]="format['value']['marker']"
-             (imageLoaded)="imageLoaded(format.key, format.value['iconId'])">
+  <mgl-image *ngFor="let format of formats"
+             [id]="format.iconId"
+             [url]="format.marker"
+             (imageLoaded)="imageLoaded(format.key, format.iconId)">
   </mgl-image>
+
 
   <mgl-layer *ngIf="markerImagesLoaded"
      id="markers"

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Marker } from 'mapbox-gl';
+import { ImageFormat } from '../environment.interface';
 import { Feature } from "../images-geojson.interface";
 import panzoom from "panzoom";
 
@@ -16,13 +17,13 @@ import panzoom from "panzoom";
 export class HomeComponent implements OnInit, OnDestroy {
 
   mapParams = environment.init.map;
-  formats: any = environment.formats;
+  formats: ImageFormat[] = environment.imageFormats;
   key: string | null = '';
   thisMap: Map | null = null;
   map: MapboxMap | null = null;
   formatKeys: any[];
   markerImagesLoaded = false;
-  spiderifier: any;
+  // spiderifier: any;
   cursorStyle = 'default';
   SPIDERFY_FROM_ZOOM = 10;
   popupFeature: GeoJSON.Feature<GeoJSON.Point> | undefined = undefined;
@@ -132,9 +133,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
               let html = '<ul class="cluster-popup-list">';
               leafFeatures.forEach( feature => {
+
+                const isThisFormat = ( element: ImageFormat ) => element.key == feature?.properties?.format;
+                const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
+
                 html += '<li class="cluster-popup-list-item">';
                 // @ts-ignore
-                html += '<img src="' + this.formats[feature?.properties?.format].icon + '">';
+                html += '<img src="' + thisFormat.icon + '">';
                 html += '<span>' + feature?.properties?.taken + '</span>';
                 html += '</li>';
               })
@@ -148,7 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               for (let i = 0; i < imageNodeList.length; i++) {
                 // @ts-ignore
                 imageNodeList[i].addEventListener("click", ($event) => {
-                  this.onFeatureClick(leafFeatures[i])
+                  // this.onFeatureClick(leafFeatures[i])
                 });
               }
             }
@@ -158,12 +163,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFeatureClick(feature: any) {
+  onFeatureClick(feature: Feature) {
     this.buildModal(feature);
     // this.elementRef.nativeElement.querySelector('.cluster-popup-list-item').removeEventListener('click', this.onFeatureClick);
   }
 
-  buildModal(feature: any) {
+  buildModal(feature: Feature) {
     console.log('feature', feature);
 
     let imagePath = environment.imagesBaseUrl + this.key + '/' + feature.properties.id + ".jpg";
@@ -174,9 +179,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     let header = document.getElementById('image-modal-header');
     if (header) {
 
-      let headerHtml = '<img src="' + this.formats[feature.format].icon + '"><h5>' + this.formats[feature.format].name + '</h5>';
-      headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-      header.innerHTML = headerHtml;
+      // let headerHtml = '<img src="' + this.formats[feature.properties.format].icon + '"><h5>' + this.formats[feature.properties.format].name + '</h5>';
+      //
+      // headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+      // header.innerHTML = headerHtml;
       //
       // let body = document.getElementById('image-modal-body');
       // let bodyHtml = '<div class="row pb-1">';
