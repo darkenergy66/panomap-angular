@@ -195,22 +195,22 @@ export class HomeComponent implements OnInit, OnDestroy {
       bodyHtml += '<span class="popup-label">Altitude: </span>' + props.altitudeFeet + 'ft</div>';
       bodyHtml += '</div>';
 
-      console.log('headerHtml', bodyHtml);
+      console.log('headerHtml', bodyHtml, props.format);
 
-      //
-      // switch (feature.format) {
-      //   case '360':
-      //     bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
-      //     bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
-      //     bodyHtml += 'src="https://kuula.co/share/' + feature.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
-      //     break;
-      //   case '180':
-      //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-      //     break;
-      //   default:
-      //     bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-      //     break;
-      // }
+      switch (props.format) {
+        case '360':
+          bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
+          bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
+          bodyHtml += 'src="https://kuula.co/share/' + props.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
+          break;
+        case '180':
+          bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+          break;
+        default:
+          bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+          break;
+      }
+
       // body.innerHTML = bodyHtml;
       //
       // let imageModal = new bootstrap.Modal(document.getElementById('image-modal'), {
@@ -227,7 +227,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       //     zoomButtons[i].classList.remove('invisible');
       //   }
       // }
-      // imageModal.show();;
+      // imageModal.show();
     }
 
   }

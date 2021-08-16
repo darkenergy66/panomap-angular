@@ -2,9 +2,10 @@
 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
   Select map
 </button>
-<ul class="dropdown-menu">
+<ul class="dropdown-menu" aria-labelledby="mapSelectDropdownButton">
   <li *ngFor="let mapMenuItem of mapMenu; let i = index"><a class="dropdown-item" href="#" [routerLink]="['/', mapMenuItem.key]">{{ mapMenuItem.title }}</a></li>
 </ul>
+
 <div class="form-check form-switch">
   <input class="form-check-input" type="checkbox" id="checkShowMarkers" checked onchange="hideShowMarkers()">
   <label class="form-check-label" for="checkShowMarkers">Show image markers</label>
