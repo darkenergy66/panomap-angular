@@ -153,7 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               for (let i = 0; i < imageNodeList.length; i++) {
                 // @ts-ignore
                 imageNodeList[i].addEventListener("click", ($event) => {
-                  // this.onFeatureClick(leafFeatures[i])
+                  this.onFeatureClick(leafFeatures[i])
                 });
               }
             }
@@ -163,33 +163,40 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFeatureClick(feature: Feature) {
+  onFeatureClick(feature: any) {
     this.buildModal(feature);
     // this.elementRef.nativeElement.querySelector('.cluster-popup-list-item').removeEventListener('click', this.onFeatureClick);
   }
 
-  buildModal(feature: Feature) {
+  buildModal(feature: any) {
     console.log('feature', feature);
 
     let imagePath = environment.imagesBaseUrl + this.key + '/' + feature.properties.id + ".jpg";
-    console.log('imagePath', imagePath);
     let imageTitle = feature.properties.id + ".jpg";
     let downloadFile = imagePath;
 
     let header = document.getElementById('image-modal-header');
     if (header) {
 
-      // let headerHtml = '<img src="' + this.formats[feature.properties.format].icon + '"><h5>' + this.formats[feature.properties.format].name + '</h5>';
-      //
-      // headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-      // header.innerHTML = headerHtml;
-      //
-      // let body = document.getElementById('image-modal-body');
-      // let bodyHtml = '<div class="row pb-1">';
-      // bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + feature.taken + '</div>';
-      // bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + feature.longitude + ', ' + feature.latitude + '&nbsp;&nbsp;&nbsp;';
-      // bodyHtml += '<span class="popup-label">Altitude: </span>' + feature.altitudeFeet + 'ft</div>';
-      // bodyHtml += '</div>';
+      const props = feature.properties;
+
+      const isThisFormat = ( element: ImageFormat ) => element.key == props.format;
+      const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
+
+      let headerHtml = '<img src="' + thisFormat.icon + '"><h5>' + thisFormat.name + '</h5>';
+
+      headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+      header.innerHTML = headerHtml;
+
+      let body = document.getElementById('image-modal-body');
+      let bodyHtml = '<div class="row pb-1">';
+      bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + props.taken + '</div>';
+      bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + props.longitude + ', ' + props.latitude + '&nbsp;&nbsp;&nbsp;';
+      bodyHtml += '<span class="popup-label">Altitude: </span>' + props.altitudeFeet + 'ft</div>';
+      bodyHtml += '</div>';
+
+      console.log('headerHtml', bodyHtml);
+
       //
       // switch (feature.format) {
       //   case '360':
