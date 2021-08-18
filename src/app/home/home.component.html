@@ -134,32 +134,70 @@
 
 </mgl-map>
 
-<!-- Modal -->
-<div class="modal fade" id="image-modal" tabindex="-1" aria-labelledby="image-modal-label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div id="image-view" class="modal-content">
-
-      <div id="image-modal-header" class="modal-header py-1">
-      </div>
-
-      <div id="image-modal-body" class="modal-body px-2 pt-2 pb-0">
-      </div>
-
-      <div class="modal-footer px-1 pb-1 pt-1">
-        <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomIn()"><i class="bi bi-zoom-in" style="font-size: 1rem;"></i></button>
-        <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomOut()"><i class="bi bi-zoom-out" style="font-size: 1rem;"></i></button>
-        <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="resetZoom()"><i class="bi bi-arrows-fullscreen" style="font-size: 1rem;"></i> Reset</button>
-        <span>&nbsp;&nbsp;</span>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="openFullscreen()" ><i class="bi bi-fullscreen" style="font-size: 1rem; color: white;"></i> Full Screen</button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="download()"><i class="bi bi-download" style="font-size: 1rem; color: white;"></i> Download</button>
-        <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><i class="bi bi-x-square" style="font-size: 1rem; color: white;"></i> Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 <app-console id="home-console"></app-console>
+
+
+
+
+
+
+<ng-template #content let-modal>
+  <div id="image-modal-header" class="modal-header py-1">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+<!--      <div class="form-group">-->
+<!--        <label for="dateOfBirth">Date of birth</label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">-->
+<!--          <div class="input-group-append">-->
+<!--            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<button #imageModal class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+
+
+
+
+<!--&lt;!&ndash;<ng-template #content let-modal>&ndash;&gt;-->
+<!--<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="image-modal-label" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-dialog-centered modal-xl">-->
+<!--    <div id="image-view" class="modal-content">-->
+
+<!--      <div id="image-modal-header" class="modal-header py-1">-->
+<!--      </div>-->
+
+<!--      <div id="image-modal-body" class="modal-body px-2 pt-2 pb-0">-->
+<!--      </div>-->
+
+<!--      <div class="modal-footer px-1 pb-1 pt-1">-->
+<!--        <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomIn()"><i class="bi bi-zoom-in" style="font-size: 1rem;"></i></button>-->
+<!--        <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomOut()"><i class="bi bi-zoom-out" style="font-size: 1rem;"></i></button>-->
+<!--        <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="resetZoom()"><i class="bi bi-arrows-fullscreen" style="font-size: 1rem;"></i> Reset</button>-->
+<!--        <span>&nbsp;&nbsp;</span>-->
+<!--        <button type="button" class="btn btn-secondary btn-sm" onclick="openFullscreen()" ><i class="bi bi-fullscreen" style="font-size: 1rem; color: white;"></i> Full Screen</button>-->
+<!--        <button type="button" class="btn btn-secondary btn-sm" onclick="download()"><i class="bi bi-download" style="font-size: 1rem; color: white;"></i> Download</button>-->
+<!--        <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><i class="bi bi-x-square" style="font-size: 1rem; color: white;"></i> Close</button>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--&lt;!&ndash;</ng-template>&ndash;&gt;-->
+<!--<button #myModal [hidden]="true" (click)="test()" data-toggle="modal" data-target="#myModal"></button>-->
+
 
 
 

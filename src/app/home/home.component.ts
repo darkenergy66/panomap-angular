@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ChangeDetectorRef, ElementRef} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectorRef, ElementRef, ViewChild} from '@angular/core';
 import { ImageDataService } from '../image-data.service';
 import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Mar
 import { ImageFormat } from '../environment.interface';
 import { Feature } from "../images-geojson.interface";
 import panzoom from "panzoom";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -31,11 +32,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   mapsSubscription: Subscription;
 
+  @ViewChild('imageModal') imageModal: ElementRef | undefined;
+
   constructor(
     private imageData: ImageDataService,
     private activatedRoute: ActivatedRoute,
     private ref: ChangeDetectorRef,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private modalService: NgbModal
   )
   {
 
@@ -164,7 +168,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onFeatureClick(feature: any) {
-    this.buildModal(feature);
+    console.log('imageModal', this.imageModal);
+    this.imageModal?.nativeElement.click();
+    // this.buildModal(feature);
     // this.elementRef.nativeElement.querySelector('.cluster-popup-list-item').removeEventListener('click', this.onFeatureClick);
   }
 
@@ -238,6 +244,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   download() {
 
+  }
+
+
+  open(content: any) {
+    const options = {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'xl',
+      centered: true,
+      backdrop: true,
+      animation: true
+    }
+    this.modalService.open(content, options).result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
 }
