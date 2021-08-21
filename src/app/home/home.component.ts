@@ -4,6 +4,7 @@ import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Marker } from 'mapbox-gl';
 import { ImageFormat } from '../environment.interface';
 import { Feature } from "../images-geojson.interface";
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   popupHtml = '';
   currentImage: any;
   imagePath = '';
+  kuulaUrl: SafeResourceUrl = '';
   format: ImageFormat | null = null;
 
   mapsSubscription: Subscription;
@@ -42,7 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private ref: ChangeDetectorRef,
     private elementRef: ElementRef,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private dom:DomSanitizer
   )
   {
 
@@ -141,9 +144,6 @@ export class HomeComponent implements OnInit, OnDestroy {
               let html = '<ul class="cluster-popup-list">';
               leafFeatures.forEach( feature => {
 
-                // const isThisFormat = ( element: ImageFormat ) => element.key == feature?.properties?.format;
-                // const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
-
                 const thisFormat = this.getFormat(feature?.properties?.format);
 
                 html += '<li class="cluster-popup-list-item">';
@@ -185,14 +185,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.currentImage = feature?.properties;
     this.imagePath = environment.imagesBaseUrl + this.key + '/' + this.currentImage.id + ".jpg";
-    this.format = this.getFormat(this.currentImage.format)
+    this.format = this.getFormat(this.currentImage.format);
+    this.kuulaUrl = this.dom.bypassSecurityTrustResourceUrl('https://kuula.co/share/' + this.currentImage.kuula
+      + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1');
 
     console.log('this.currentImage', this.currentImage);
     console.log('this.key', this.key);
     console.log('this.imagePath', this.imagePath);
     console.log('this.format', this.format);
     console.log('this.formats', this.formats);
-
+    console.log('this.kuulaUrl', this.kuulaUrl);
 
 
 
