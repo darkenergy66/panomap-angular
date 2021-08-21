@@ -29,6 +29,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   SPIDERFY_FROM_ZOOM = 10;
   popupFeature: GeoJSON.Feature<GeoJSON.Point> | undefined = undefined;
   popupHtml = '';
+  currentImage: any;
+  imagePath = '';
+  format: ImageFormat | null = null;
 
   mapsSubscription: Subscription;
 
@@ -138,8 +141,10 @@ export class HomeComponent implements OnInit, OnDestroy {
               let html = '<ul class="cluster-popup-list">';
               leafFeatures.forEach( feature => {
 
-                const isThisFormat = ( element: ImageFormat ) => element.key == feature?.properties?.format;
-                const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
+                // const isThisFormat = ( element: ImageFormat ) => element.key == feature?.properties?.format;
+                // const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
+
+                const thisFormat = this.getFormat(feature?.properties?.format);
 
                 html += '<li class="cluster-popup-list-item">';
                 // @ts-ignore
@@ -170,52 +175,67 @@ export class HomeComponent implements OnInit, OnDestroy {
   onFeatureClick(feature: any) {
     console.log('imageModal', this.imageModal);
     this.imageModal?.nativeElement.click();
+    this.buildModal(feature);
+
     // this.buildModal(feature);
     // this.elementRef.nativeElement.querySelector('.cluster-popup-list-item').removeEventListener('click', this.onFeatureClick);
   }
 
   buildModal(feature: any) {
-    console.log('feature', feature);
 
-    let imagePath = environment.imagesBaseUrl + this.key + '/' + feature.properties.id + ".jpg";
-    let imageTitle = feature.properties.id + ".jpg";
-    let downloadFile = imagePath;
+    this.currentImage = feature?.properties;
+    this.imagePath = environment.imagesBaseUrl + this.key + '/' + this.currentImage.id + ".jpg";
+    this.format = this.getFormat(this.currentImage.format)
 
-    let header = document.getElementById('image-modal-header');
-    if (header) {
+    console.log('this.currentImage', this.currentImage);
+    console.log('this.key', this.key);
+    console.log('this.imagePath', this.imagePath);
+    console.log('this.format', this.format);
+    console.log('this.formats', this.formats);
 
-      const props = feature.properties;
 
-      const isThisFormat = ( element: ImageFormat ) => element.key == props.format;
-      const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
 
-      let headerHtml = '<img src="' + thisFormat.icon + '"><h5>' + thisFormat.name + '</h5>';
 
-      headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-      header.innerHTML = headerHtml;
 
-      let body = document.getElementById('image-modal-body');
-      let bodyHtml = '<div class="row pb-1">';
-      bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + props.taken + '</div>';
-      bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + props.longitude + ', ' + props.latitude + '&nbsp;&nbsp;&nbsp;';
-      bodyHtml += '<span class="popup-label">Altitude: </span>' + props.altitudeFeet + 'ft</div>';
-      bodyHtml += '</div>';
-
-      console.log('headerHtml', bodyHtml, props.format);
-
-      switch (props.format) {
-        case '360':
-          bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
-          bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
-          bodyHtml += 'src="https://kuula.co/share/' + props.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
-          break;
-        case '180':
-          bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-          break;
-        default:
-          bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-          break;
-      }
+    // let imagePath = environment.imagesBaseUrl + this.key + '/' + feature.properties.id + ".jpg";
+    // let imageTitle = feature.properties.id + ".jpg";
+    // let downloadFile = imagePath;
+    //
+    // let header = document.getElementById('image-modal-header');
+    // if (header) {
+    //
+    //   const props = feature.properties;
+    //
+    //   const isThisFormat = ( element: ImageFormat ) => element.key == props.format;
+    //   const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
+    //
+    //   let headerHtml = '<img src="' + thisFormat.icon + '"><h5>' + thisFormat.name + '</h5>';
+    //
+    //   headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+    //   header.innerHTML = headerHtml;
+    //
+    //   let body = document.getElementById('image-modal-body');
+    //   let bodyHtml = '<div class="row pb-1">';
+    //   bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + props.taken + '</div>';
+    //   bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + props.longitude + ', ' + props.latitude + '&nbsp;&nbsp;&nbsp;';
+    //   bodyHtml += '<span class="popup-label">Altitude: </span>' + props.altitudeFeet + 'ft</div>';
+    //   bodyHtml += '</div>';
+    //
+    //   console.log('headerHtml', bodyHtml, props.format);
+    //
+    //   switch (props.format) {
+    //     case '360':
+    //       bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
+    //       bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
+    //       bodyHtml += 'src="https://kuula.co/share/' + props.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
+    //       break;
+    //     case '180':
+    //       bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+    //       break;
+    //     default:
+    //       bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
+    //       break;
+    //   }
 
       // body.innerHTML = bodyHtml;
       //
@@ -234,7 +254,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       //   }
       // }
       // imageModal.show();
-    }
+    // }
 
   }
 
@@ -244,6 +264,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   download() {
 
+  }
+
+  getFormat(formatId: string) {
+    const isThisFormat = ( element: ImageFormat ) => element.key == formatId;
+    return this.formats[this.formats.findIndex(isThisFormat)];
   }
 
 

@@ -143,26 +143,36 @@
 
 <ng-template #content let-modal>
   <div id="image-modal-header" class="modal-header py-1">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <img src="{{ format?.icon }}"><h5>{{ format?.name }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!--    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>-->
+<!--    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+<!--      <span aria-hidden="true">&times;</span>-->
+<!--    </button>-->
   </div>
   <div class="modal-body">
-    <form>
-<!--      <div class="form-group">-->
-<!--        <label for="dateOfBirth">Date of birth</label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">-->
-<!--          <div class="input-group-append">-->
-<!--            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-    </form>
+    <div class="row pb-1">
+      <div class="col-6"><span class="popup-label">Taken: </span>{{ currentImage.taken }}</div>
+      <div class="col-6 text-end"><span class="popup-label">Location: </span>{{ currentImage.longitude }}, {{ currentImage.latitude }}
+          <span class="popup-label">Altitude: </span>{{ currentImage.altitudeFeet }}ft</div>
+    </div>
+
+    <ng-container *ngIf="format?.key==='360'"><div>360</div></ng-container>
+
+    <ng-container *ngIf="format?.key==='180'"><div>180</div></ng-container>
+
+    <ng-container *ngIf="format?.key==='pic'"><div>pic</div></ng-container>
+
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+
+  <div class="modal-footer px-1 pb-1 pt-1">
+    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomIn()"><i class="bi bi-zoom-in" style="font-size: 1rem;"></i></button>
+    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomOut()"><i class="bi bi-zoom-out" style="font-size: 1rem;"></i></button>
+    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="resetZoom()"><i class="bi bi-arrows-fullscreen" style="font-size: 1rem;"></i> Reset</button>
+    <span>&nbsp;&nbsp;</span>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="openFullscreen()" ><i class="bi bi-fullscreen" style="font-size: 1rem; color: white;"></i> Full Screen</button>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="download()"><i class="bi bi-download" style="font-size: 1rem; color: white;"></i> Download</button>
+    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><i class="bi bi-x-square" style="font-size: 1rem; color: white;"></i> Close</button>
   </div>
 </ng-template>
 
