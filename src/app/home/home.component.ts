@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   key: string | null = '';
   thisMap: Map | null = null;
   map: MapboxMap | null = null;
-  formatKeys: any[];
+  formatKeys: any[] = [];
   markerImagesLoaded = false;
   // spiderifier: any;
   cursorStyle = 'default';
@@ -49,7 +49,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   )
   {
 
-    this.formatKeys = Object.keys(this.formats);
+    // this.formatKeys = Object.keys(this.formats);
+    for (let i=0; i<this.formats.length; i++ ) {
+      this.formatKeys.push(this.formats[i].key);
+    }
+
     this.activatedRoute.paramMap.subscribe(params => {
       this.key = params.get('key');
       if (this.key) {

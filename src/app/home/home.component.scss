@@ -34,3 +34,61 @@ mgl-map {
   }
 }
 
+.popup-image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.popup-text {
+  clear: both;
+}
+
+h5 {
+  margin-bottom: 0;
+}
+
+.popup-format {
+  float: left;
+}
+
+.popup-actions {
+  padding-top: 7px;
+}
+
+.popup-fa {
+  font-size: 12px;
+  color: #404040;
+  font-weight: normal;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.popup-size {
+  float: right;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+.popup-fa-icon {
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.popup-label {
+  font-weight: 600;
+  padding-right: 5px;
+}
+
+.image-marker {
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 1rem 0.5rem 0.05px 0.5rem;
+ }
+
+.modal-footer {
+  border-top: none;
+}
+
+
