@@ -4,7 +4,8 @@ import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+
+import { DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Marker } from 'mapbox-gl';
 import { ImageFormat } from '../environment.interface';
 import { Feature } from "../images-geojson.interface";
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.mapsSubscription = imageData.data$.subscribe(Maps => {
       if (Maps) {
+
         if (this.key) {
           this.thisMap = this.imageData.getMap<Map>(this.key);
           if (this.thisMap && this.thisMap['mapbox']) {
@@ -89,9 +91,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   mapLoad(map: MapboxMap) {
     this.map = map;
     console.log('this.map>>', this.map);
+    console.log('>>2>>>', this.map?.getStyle().layers);
   }
 
   showMap() {
+    console.log('>>1>>>', this.map?.getStyle().layers);
+
+
+    console.log('>>1a>>>', this.map?.getStyle().layers);
+
+    this.map?.on('idle', () => {
+      // map.getCanvas().toDataURL()
+      console.log('>>1b>>>', this.map?.getStyle().layers);
+      this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
+
+    });
+
     if (this.thisMap)
       this.mapParams['center'] = this.thisMap?.mapbox.center || environment.init.map.center;
       this.mapParams['zoom'] = this.thisMap?.mapbox.zoom || environment.init.map.zoom;
