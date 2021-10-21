@@ -175,13 +175,13 @@
   </div>
 
   <div class="modal-footer px-1 pb-1 pt-1">
-    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomIn()"><i class="bi bi-zoom-in" style="font-size: 1rem;"></i></button>
-    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomOut()"><i class="bi bi-zoom-out" style="font-size: 1rem;"></i></button>
-    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="resetZoom()"><i class="bi bi-arrows-fullscreen" style="font-size: 1rem;"></i> Reset</button>
+    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomIn()"><fa-icon [icon]="faSearchPlus" style="font-size: 1rem;"></fa-icon></button>
+    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="zoomOut()"><fa-icon [icon]="faSearchMinus" style="font-size: 1rem;"></fa-icon></button>
+    <button type="button" class="btn btn-outline-primary btn-sm image-zoom" onclick="resetZoom()"><fa-icon [icon]="faAsterisk" style="font-size: 1rem;"></fa-icon> Reset</button>
     <span>&nbsp;&nbsp;</span>
-    <button type="button" class="btn btn-secondary btn-sm" onclick="openFullscreen()" ><i class="bi bi-fullscreen" style="font-size: 1rem; color: white;"></i> Full Screen</button>
-    <button type="button" class="btn btn-secondary btn-sm" onclick="download()"><i class="bi bi-download" style="font-size: 1rem; color: white;"></i> Download</button>
-    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><i class="bi bi-x-square" style="font-size: 1rem; color: white;"></i> Close</button>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="openFullscreen()" ><fa-icon [icon]="faArrowsAlt" style="font-size: 1rem;"></fa-icon> Full Screen</button>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="download()"><fa-icon [icon]="faDownload" style="font-size: 1rem;"></fa-icon> Download</button>
+    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><fa-icon [icon]="faTimes" style="font-size: 1rem;"></fa-icon> Close</button>
   </div>
 </ng-template>
 

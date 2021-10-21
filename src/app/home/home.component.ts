@@ -11,6 +11,7 @@ import { ImageFormat } from '../environment.interface';
 import { Feature } from "../images-geojson.interface";
 import panzoom from "panzoom";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faSearchMinus, faSearchPlus, faArrowsAlt, faDownload, faTimes, faAsterisk } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+  faSearchMinus = faSearchMinus;
+  faSearchPlus = faSearchPlus;
+  faArrowsAlt = faArrowsAlt;
+  faDownload = faDownload;
+  faTimes = faTimes;
+  faAsterisk = faAsterisk;
 
   mapParams = environment.init.map;
   formats: ImageFormat[] = environment.imageFormats;
