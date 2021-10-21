@@ -90,19 +90,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   mapLoad(map: MapboxMap) {
     this.map = map;
-    console.log('this.map>>', this.map);
-    console.log('>>2>>>', this.map?.getStyle().layers);
+    // console.log('this.map>>', this.map);
+    // console.log('>>2>>>', this.map?.getStyle().layers);
   }
 
   showMap() {
-    console.log('>>1>>>', this.map?.getStyle().layers);
-
-
-    console.log('>>1a>>>', this.map?.getStyle().layers);
+    // console.log('>>1>>>', this.map?.getStyle().layers);
 
     this.map?.on('idle', () => {
       // map.getCanvas().toDataURL()
-      console.log('>>1b>>>', this.map?.getStyle().layers);
+      // console.log('>>1b>>>', this.map?.getStyle().layers);
       this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
 
     });
@@ -114,14 +111,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   imageLoaded(key: any, testId: any) {
-    console.log('loaded', key, 'formatKeys', this.formatKeys, 'id', testId);
+    // console.log('loaded', key, 'formatKeys', this.formatKeys, 'id', testId);
     const index = this.formatKeys.indexOf(key);
     if (index > -1) {
       this.formatKeys.splice(index, 1);
     }
     if (this.formatKeys.length === 0) {
       this.markerImagesLoaded = true;
-      console.log('Marker images loaded');
+      // console.log('Marker images loaded');
     }
   }
 
@@ -132,6 +129,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (!features?.length) {
       return;
     } else {
+      this.imageModal?.nativeElement.click();
       this.buildModal(features[0]);
     }
   }
@@ -192,7 +190,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onFeatureClick(feature: any) {
-    console.log('imageModal', this.imageModal);
+    // console.log('imageModal', this.imageModal);
     this.imageModal?.nativeElement.click();
     this.buildModal(feature);
 
@@ -214,6 +212,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log('this.format', this.format);
     console.log('this.formats', this.formats);
     console.log('this.kuulaUrl', this.kuulaUrl);
+
+
 
 
 
@@ -291,7 +291,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     const isThisFormat = ( element: ImageFormat ) => element.key == formatId;
     return this.formats[this.formats.findIndex(isThisFormat)];
   }
-
 
   open(content: any) {
     const options = {
