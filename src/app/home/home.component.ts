@@ -4,6 +4,7 @@ import { Maps, Map } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 import { DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Marker } from 'mapbox-gl';
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private modalService: NgbModal,
     private dom:DomSanitizer,
+    private http: HttpClient,
   )
   {
 
@@ -309,9 +311,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  download() {
 
-  }
+
+
+  download() {
+    this.http.get(this.imagePath, { responseType: 'blob' }).subscribe( val => {
+      const url = URL.createObjectURL(val);
+      const a: any = document.createElement('a');
+      a.href = url;
+      a.download = '';
+      document.body.appendChild(a);
+      a.style = 'display: none';
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+  };
 
   zoomIn() {
 
