@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagePath = '';
   kuulaUrl: SafeResourceUrl = '';
   format: ImageFormat | null = null;
+  modalImageId = "modalImage";
 
   mapsSubscription: Subscription;
 
