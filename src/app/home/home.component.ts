@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   map: MapboxMap | null = null;
   formatKeys: any[] = [];
   markerImagesLoaded = false;
-  // spiderifier: any;
   cursorStyle = 'default';
   SPIDERFY_FROM_ZOOM = 10;
   popupFeature: GeoJSON.Feature<GeoJSON.Point> | undefined = undefined;
@@ -54,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     private elementRef: ElementRef,
     private modalService: NgbModal,
-    private dom:DomSanitizer
+    private dom:DomSanitizer,
   )
   {
 
@@ -287,17 +286,43 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  openFullscreen() {
+  getFormat(formatId: string) {
+    const isThisFormat = ( element: ImageFormat ) => element.key == formatId;
+    return this.formats[this.formats.findIndex(isThisFormat)];
+  }
 
+  openFullscreen() {
+     const docElmWithBrowsersFullScreenFunctions = document.getElementById("modalImage") as HTMLElement & {
+      mozRequestFullScreen(): Promise<void>;
+      webkitRequestFullscreen(): Promise<void>;
+      msRequestFullscreen(): Promise<void>;
+    };
+
+    if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
+      docElmWithBrowsersFullScreenFunctions.requestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) { /* Firefox */
+      docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) { /* IE/Edge */
+      docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
+    }
   }
 
   download() {
 
   }
 
-  getFormat(formatId: string) {
-    const isThisFormat = ( element: ImageFormat ) => element.key == formatId;
-    return this.formats[this.formats.findIndex(isThisFormat)];
+  zoomIn() {
+
+  }
+
+  zoomOut() {
+
+  }
+
+  resetZoom() {
+
   }
 
   open(content: any) {

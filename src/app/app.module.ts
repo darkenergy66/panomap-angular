@@ -11,6 +11,7 @@ import { PopupComponent } from './popup/popup.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -26,6 +27,7 @@ import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     AppRoutingModule,
     FontAwesomeModule,
+    NgxImageZoomModule,
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1IjoiaWFuY29sbGlzIiwiYSI6ImNqZXY2MHBnejBhdWUycXFjOXE1NmVyam8ifQ.4ZU6sWMHHmNzOG08U7luRQ', // Optional, can also be set per map (accessToken input of mgl-map)
     }),
