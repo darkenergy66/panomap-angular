@@ -9,10 +9,9 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Marker } from 'mapbox-gl';
 import { ImageFormat } from '../environment.interface';
-import { Feature } from "../images-geojson.interface";
-import panzoom from "panzoom";
+// import { Feature } from "../images-geojson.interface";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faSearchMinus, faSearchPlus, faArrowsAlt, faDownload, faTimes, faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { faSearchMinus, faSearchPlus, faArrowsAlt, faDownload, faTimes, faAsterisk, faRedo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   faDownload = faDownload;
   faTimes = faTimes;
   faAsterisk = faAsterisk;
+  faRedo = faRedo;
 
   mapParams = environment.init.map;
   formats: ImageFormat[] = environment.imageFormats;
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   popupHtml = '';
   currentImage: any;
   imagePath = '';
+  thumbnailPath = '';
   kuulaUrl: SafeResourceUrl = '';
   format: ImageFormat | null = null;
   modalImageId = "modalImage";
@@ -211,17 +212,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   buildModal(feature: any) {
 
     this.currentImage = feature?.properties;
-    this.imagePath = environment.imagesBaseUrl + this.key + '/' + this.currentImage.id + ".jpg";
+    this.imagePath = environment.imagesBaseUrl + this.key + '/' + this.currentImage.id + '.jpg';
+    this.thumbnailPath = environment.imagesBaseUrl + this.key + '/' + this.currentImage.id + '-thumb.jpg';
     this.format = this.getFormat(this.currentImage.format);
     this.kuulaUrl = this.dom.bypassSecurityTrustResourceUrl('https://kuula.co/share/' + this.currentImage.kuula
       + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1');
 
-    console.log('this.currentImage', this.currentImage);
-    console.log('this.key', this.key);
-    console.log('this.imagePath', this.imagePath);
-    console.log('this.format', this.format);
-    console.log('this.formats', this.formats);
-    console.log('this.kuulaUrl', this.kuulaUrl);
+    // console.log('this.currentImage', this.currentImage);
+    // console.log('this.key', this.key);
+    // console.log('this.imagePath', this.imagePath);
+    // console.log('this.format', this.format);
+    // console.log('this.formats', this.formats);
+    // console.log('this.kuulaUrl', this.kuulaUrl);
 
 
 
