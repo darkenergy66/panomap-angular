@@ -181,7 +181,8 @@
     <span>&nbsp;&nbsp;</span>
     <button type="button" class="btn btn-secondary btn-sm" (click)="openFullscreen()" ><fa-icon [icon]="faArrowsAlt" style="font-size: 1rem;"></fa-icon> Full Screen</button>
     <button type="button" class="btn btn-secondary btn-sm" (click)="download()"><fa-icon [icon]="faDownload" style="font-size: 1rem;"></fa-icon> Download</button>
-    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><fa-icon [icon]="faTimes" style="font-size: 1rem;"></fa-icon> Close</button>
+    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal" (click)="modal.dismiss('Button click')">
+      <fa-icon [icon]="faTimes" style="font-size: 1rem;"></fa-icon> Close</button>
   </div>
 </ng-template>
 
