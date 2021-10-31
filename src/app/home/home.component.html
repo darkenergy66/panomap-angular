@@ -134,12 +134,7 @@
 
 </mgl-map>
 
-<app-console id="home-console"></app-console>
-
-
-
-
-
+<app-console id="home-console" [pageTitle]="pageTitle" (mapList)='mapList($event)'></app-console>
 
 <ng-template #content let-modal>
   <div id="image-modal-header" class="modal-header py-1">

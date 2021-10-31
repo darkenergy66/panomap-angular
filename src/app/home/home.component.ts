@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ChangeDetectorRef, ElementRef, ViewChild} from '@angular/core';
 import { ImageDataService } from '../image-data.service';
-import { Maps, Map } from '../maps-list.interface';
+import { Maps, Map, MapMenu } from '../maps-list.interface';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { GeoJSONSource, Map as MapboxMap, MapLayerMouseEvent, MapMouseEvent, Mar
 import { ImageFormat } from '../environment.interface';
 // import { Feature } from "../images-geojson.interface";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { faSearchMinus, faSearchPlus, faArrowsAlt, faDownload, faTimes, faAsterisk, faRedo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -45,6 +46,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   kuulaUrl: SafeResourceUrl = '';
   format: ImageFormat | null = null;
   modalImageId = "modalImage";
+  pageTitle = '';
+  mapMenu: MapMenu[] = [];
 
   mapsSubscription: Subscription;
 
@@ -72,6 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.thisMap = this.imageData.getMap<Map>(this.key);
         console.log('Specific map data loaded');
         if (this.thisMap && this.thisMap['mapbox']) {
+          this.pageTitle = this.thisMap.title;
           this.showMap();
         }
       }
@@ -84,6 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.thisMap = this.imageData.getMap<Map>(this.key);
           if (this.thisMap && this.thisMap['mapbox']) {
             console.log('Initial map data loaded', this.thisMap);
+            this.pageTitle = this.thisMap.title;
             this.showMap();
           }
         }
@@ -105,15 +110,27 @@ export class HomeComponent implements OnInit, OnDestroy {
     // console.log('>>2>>>', this.map?.getStyle().layers);
   }
 
+  mapList(mapList: MapMenu[] ) {
+    // if (mapList) {
+    //   this.mapMenu = mapList;
+    // }
+
+    // const thisMap = mapList.find( ({ key }) => key === this.key );
+    // console.log('{{{{thisMap', thisMap);
+    // this.pageTitle ??= thisMap.title;
+  }
+
   showMap() {
     // console.log('>>1>>>', this.map?.getStyle().layers);
 
-    this.map?.on('idle', () => {
-      // map.getCanvas().toDataURL()
-      // console.log('>>1b>>>', this.map?.getStyle().layers);
-      this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
-
-    });
+    //////////////////////////
+    // this.map?.on('idle', () => {
+    //   // map.getCanvas().toDataURL()
+    //   // console.log('>>1b>>>', this.map?.getStyle().layers);
+    //   // This needs to be made generic
+    //   this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
+    // });
+    //////////////////////////
 
     if (this.thisMap)
       this.mapParams['center'] = this.thisMap?.mapbox.center || environment.init.map.center;

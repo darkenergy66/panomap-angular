@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import { ImageDataService } from '../image-data.service';
 import { Maps, Map, MapMenu } from '../maps-list.interface';
 import {Subscription} from "rxjs";
@@ -15,6 +15,10 @@ export class ConsoleComponent implements OnInit, OnDestroy {
   mapMenu: MapMenu[] = [];
 
   mapsSubscription: Subscription;
+
+  @Input() pageTitle: string = '';
+
+  @Output() mapList = new EventEmitter();
 
   constructor(private imageData: ImageDataService) {
     this.mapsSubscription = imageData.data$.subscribe(maps => {
@@ -44,6 +48,7 @@ export class ConsoleComponent implements OnInit, OnDestroy {
         }
       )
     }
+    this.mapList.emit(this.mapMenu);
     console.log(this.mapMenu);
   }
 }

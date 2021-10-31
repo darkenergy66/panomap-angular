@@ -1,6 +1,7 @@
-<h1 id="console-title">{{ title }}</h1>
-<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-  Select map
+<h1 class="display-6 mb-0" id="console-title">{{ title }}</h1>
+<h4 *ngIf="pageTitle.length > 0"><small class="text-muted">{{ pageTitle }}</small></h4>
+<button type="button" class="btn btn-secondary dropdown-toggle w-100 mb-3 mt-2" data-bs-toggle="dropdown" aria-expanded="false">
+  Select data set
 </button>
 <ul class="dropdown-menu" aria-labelledby="mapSelectDropdownButton">
   <li *ngFor="let mapMenuItem of mapMenu; let i = index"><a class="dropdown-item" href="#" [routerLink]="['/', mapMenuItem.key]">{{ mapMenuItem.title }}</a></li>
