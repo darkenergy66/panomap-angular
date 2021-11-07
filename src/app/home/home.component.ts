@@ -186,23 +186,66 @@ export class HomeComponent implements OnInit, OnDestroy {
                 return console.error('error while getting leaves of a cluster', err);
               }
 
-              let html = '<ul class="cluster-popup-list">';
-              leafFeatures.forEach( feature => {
+              console.log('====>leafFeatures', leafFeatures);
 
-                const thisFormat = this.getFormat(feature?.properties?.format);
 
-                html += '<li class="cluster-popup-list-item">';
-                // @ts-ignore
-                html += '<img src="' + thisFormat.icon + '">';
-                html += '<span>' + feature?.properties?.taken + '</span>';
-                html += '</li>';
-              })
-              html += '</ul>';
+              // let html = '<ul class="cluster-popup-list">';
+              // leafFeatures.forEach( feature => {
+              //
+              //   const thisFormat = this.getFormat(feature?.properties?.format);
+              //
+              //   html += '<li class="cluster-popup-list-item">';
+              //   // @ts-ignore
+              //   html += '<img src="' + thisFormat.icon + '">';
+              //   html += '<span>' + feature?.properties?.taken + '</span>';
+              //   html += '</li>';
+              // })
+              // html += '</ul>';
+
+              let html = '';
+
+              this.formats.forEach( format => {
+                  const formatFeatures =  leafFeatures.filter( function( feature) {
+                    return feature?.properties?.format == format.key;
+                  });
+                  if (formatFeatures.length > 0) {
+                    console.log('format.key, format.name', format.marker, format.name);
+                    html += '<div class="row pt-1"><div class="col-12"><img src="' + format.icon + '">' + format.name + '</div></div>';
+                    html += '<div class="row pb-1 px-2">';
+                    formatFeatures.forEach( feature => {
+                      console.log('feature', feature);
+                      html += '<div class="col-4 pb-1 px-1"><img width="100%" class="cluster-popup-thumb" src="'
+                        + environment.imagesBaseUrl + this.key + '/' + feature?.properties?.id + '-thumb.jpg"></div>';
+                    })
+                    html += '</div>';
+                  }
+                }
+              )
+
+
+
+              // let html = '<ul class="cluster-popup-list">';
+              // leafFeatures.forEach( feature => {
+              //
+              //   const thisFormat = this.getFormat(feature?.properties?.format);
+              //   // console.log('thisFormat', thisFormat);
+              //
+              //   html += '<li class="cluster-popup-list-item">';
+              //   // @ts-ignore
+              //   html += '<img src="' + thisFormat.icon + '">';
+              //   html += '<span>' + feature?.properties?.taken + '</span>';
+              //   html += '</li>';
+              // })
+              // html += '</ul>';
+
+
+
 
               this.popupHtml = html;
               this.ref.detectChanges();
 
-              let imageNodeList: NodeList = this.elementRef.nativeElement.querySelectorAll('.cluster-popup-list-item');
+              let imageNodeList: NodeList = this.elementRef.nativeElement.querySelectorAll('.cluster-popup-thumb');
+              // let imageNodeList: NodeList = this.elementRef.nativeElement.querySelectorAll('.cluster-popup-list-item');
 
               for (let i = 0; i < imageNodeList.length; i++) {
                 // @ts-ignore
