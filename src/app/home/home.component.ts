@@ -13,6 +13,7 @@ import { ImageFormat } from '../environment.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { faSearchMinus, faSearchPlus, faArrowsAlt, faDownload, faTimes, faAsterisk, faRedo } from '@fortawesome/free-solid-svg-icons';
+import {Feature} from "../images-geojson.interface";
 
 @Component({
   selector: 'app-home',
@@ -106,8 +107,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   mapLoad(map: MapboxMap) {
     this.map = map;
-    // console.log('this.map>>', this.map);
-    // console.log('>>2>>>', this.map?.getStyle().layers);
   }
 
   mapList(mapList: MapMenu[] ) {
@@ -186,60 +185,27 @@ export class HomeComponent implements OnInit, OnDestroy {
                 return console.error('error while getting leaves of a cluster', err);
               }
 
-              console.log('====>leafFeatures', leafFeatures);
-
-
-              // let html = '<ul class="cluster-popup-list">';
-              // leafFeatures.forEach( feature => {
-              //
-              //   const thisFormat = this.getFormat(feature?.properties?.format);
-              //
-              //   html += '<li class="cluster-popup-list-item">';
-              //   // @ts-ignore
-              //   html += '<img src="' + thisFormat.icon + '">';
-              //   html += '<span>' + feature?.properties?.taken + '</span>';
-              //   html += '</li>';
-              // })
-              // html += '</ul>';
-
               let html = '';
+              const reorderedFeatures = leafFeatures.map(a => {return {...a}})
+              reorderedFeatures.splice(0, reorderedFeatures.length);
 
               this.formats.forEach( format => {
                   const formatFeatures =  leafFeatures.filter( function( feature) {
                     return feature?.properties?.format == format.key;
                   });
                   if (formatFeatures.length > 0) {
-                    console.log('format.key, format.name', format.marker, format.name);
-                    html += '<div class="row pt-1"><div class="col-12"><img src="' + format.icon + '">' + format.name + '</div></div>';
+                    html += '<div class="row pt-1"><div class="col-12"><img src="'
+                      + format.icon + '">' + format.name + '</div></div>';
                     html += '<div class="row pb-1 px-2">';
                     formatFeatures.forEach( feature => {
-                      console.log('feature', feature);
                       html += '<div class="col-4 pb-1 px-1"><img width="100%" class="cluster-popup-thumb" src="'
                         + environment.imagesBaseUrl + this.key + '/' + feature?.properties?.id + '-thumb.jpg"></div>';
+                      reorderedFeatures.push(feature);
                     })
                     html += '</div>';
                   }
                 }
               )
-
-
-
-              // let html = '<ul class="cluster-popup-list">';
-              // leafFeatures.forEach( feature => {
-              //
-              //   const thisFormat = this.getFormat(feature?.properties?.format);
-              //   // console.log('thisFormat', thisFormat);
-              //
-              //   html += '<li class="cluster-popup-list-item">';
-              //   // @ts-ignore
-              //   html += '<img src="' + thisFormat.icon + '">';
-              //   html += '<span>' + feature?.properties?.taken + '</span>';
-              //   html += '</li>';
-              // })
-              // html += '</ul>';
-
-
-
 
               this.popupHtml = html;
               this.ref.detectChanges();
@@ -250,7 +216,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               for (let i = 0; i < imageNodeList.length; i++) {
                 // @ts-ignore
                 imageNodeList[i].addEventListener("click", ($event) => {
-                  this.onFeatureClick(leafFeatures[i])
+                  this.onFeatureClick(reorderedFeatures[i])
                 });
               }
             }
@@ -261,12 +227,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onFeatureClick(feature: any) {
-    // console.log('imageModal', this.imageModal);
-    this.imageModal?.nativeElement.click();
     this.buildModal(feature);
-
-    // this.buildModal(feature);
-    // this.elementRef.nativeElement.querySelector('.cluster-popup-list-item').removeEventListener('click', this.onFeatureClick);
+    this.imageModal?.nativeElement.click();
   }
 
   buildModal(feature: any) {
@@ -277,77 +239,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.format = this.getFormat(this.currentImage.format);
     this.kuulaUrl = this.dom.bypassSecurityTrustResourceUrl('https://kuula.co/share/' + this.currentImage.kuula
       + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1');
-
-    // console.log('this.currentImage', this.currentImage);
-    // console.log('this.key', this.key);
-    // console.log('this.imagePath', this.imagePath);
-    // console.log('this.format', this.format);
-    // console.log('this.formats', this.formats);
-    // console.log('this.kuulaUrl', this.kuulaUrl);
-
-
-
-
-
-
-    // let imagePath = environment.imagesBaseUrl + this.key + '/' + feature.properties.id + ".jpg";
-    // let imageTitle = feature.properties.id + ".jpg";
-    // let downloadFile = imagePath;
-    //
-    // let header = document.getElementById('image-modal-header');
-    // if (header) {
-    //
-    //   const props = feature.properties;
-    //
-    //   const isThisFormat = ( element: ImageFormat ) => element.key == props.format;
-    //   const thisFormat = this.formats[this.formats.findIndex(isThisFormat)];
-    //
-    //   let headerHtml = '<img src="' + thisFormat.icon + '"><h5>' + thisFormat.name + '</h5>';
-    //
-    //   headerHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-    //   header.innerHTML = headerHtml;
-    //
-    //   let body = document.getElementById('image-modal-body');
-    //   let bodyHtml = '<div class="row pb-1">';
-    //   bodyHtml += '<div class="col-6"><span class="popup-label">Date: </span>' + props.taken + '</div>';
-    //   bodyHtml += '<div class="col-6 text-end"><span class="popup-label">Location: </span>' + props.longitude + ', ' + props.latitude + '&nbsp;&nbsp;&nbsp;';
-    //   bodyHtml += '<span class="popup-label">Altitude: </span>' + props.altitudeFeet + 'ft</div>';
-    //   bodyHtml += '</div>';
-    //
-    //   console.log('headerHtml', bodyHtml, props.format);
-    //
-    //   switch (props.format) {
-    //     case '360':
-    //       bodyHtml += '<iframe id="modal-image" className="m-0" width="100%" height="640" style="width: 100%; height: 640px; border: none; max-width: 100%; "';
-    //       bodyHtml += 'frameBorder="0" allowFullScreen allow="xr-spatial-tracking; gyroscope; accelerometer" scrolling="no" ';
-    //       bodyHtml += 'src="https://kuula.co/share/' + props.kuula + '?fs=1&vr=1&zoom=1&sd=1&thumbs=1&info=0&logo=-1"></iframe>';
-    //       break;
-    //     case '180':
-    //       bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-    //       break;
-    //     default:
-    //       bodyHtml += '<img id="modal-image" src="' + imagePath + '" width="100%">';
-    //       break;
-    //   }
-
-      // body.innerHTML = bodyHtml;
-      //
-      // let imageModal = new bootstrap.Modal(document.getElementById('image-modal'), {
-      //   keyboard: false
-      // })
-      // panzoom = Panzoom(document.getElementById('modal-image'));
-      // panzoom.setOptions({ minScale: 1, maxScale: 10 })
-      //
-      // let zoomButtons = document.getElementsByClassName('image-zoom');
-      // for (let i = 0; i < zoomButtons.length; i++) {
-      //   if (feature.format == '360') {
-      //     zoomButtons[i].classList.add('invisible');
-      //   } else {
-      //     zoomButtons[i].classList.remove('invisible');
-      //   }
-      // }
-      // imageModal.show();
-    // }
 
   }
 
