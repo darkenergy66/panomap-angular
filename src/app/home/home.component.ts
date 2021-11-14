@@ -123,12 +123,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     // console.log('>>1>>>', this.map?.getStyle().layers);
 
     //////////////////////////
-    // this.map?.on('idle', () => {
-    //   // map.getCanvas().toDataURL()
-    //   // console.log('>>1b>>>', this.map?.getStyle().layers);
-    //   // This needs to be made generic
-    //   this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
-    // });
+    this.map?.on('idle', () => {
+      // map.getCanvas().toDataURL()
+      // console.log('>>1b>>>', this.map?.getStyle().layers);
+      // This needs to be made generic
+      this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
+    });
     //////////////////////////
 
     if (this.thisMap)
