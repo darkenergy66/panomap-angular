@@ -195,7 +195,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                   });
                   if (formatFeatures.length > 0) {
                     html += '<div class="row pt-1"><div class="col-12"><img src="'
-                      + format.icon + '">' + format.name + '</div></div>';
+                      + format.icon + '">' + format.name + ' ('+ formatFeatures.length +')</div></div>';
                     html += '<div class="row pb-1 px-2">';
                     formatFeatures.forEach( feature => {
                       html += '<div class="col-4 pb-1 px-1"><img width="100%" class="cluster-popup-thumb" src="'
