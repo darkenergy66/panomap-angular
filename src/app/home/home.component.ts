@@ -75,6 +75,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (this.key) {
         this.thisMap = this.imageData.getMap<Map>(this.key);
         console.log('Specific map data loaded');
+        console.log('>>this.map>>', this.map?.getStyle().layers);
+
+        this.setMarkerVisibility(false);
+
         if (this.thisMap && this.thisMap['mapbox']) {
           this.pageTitle = this.thisMap.title;
           this.showMap();
@@ -90,6 +94,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           if (this.thisMap && this.thisMap['mapbox']) {
             console.log('Initial map data loaded', this.thisMap);
             this.pageTitle = this.thisMap.title;
+            this.setMarkerVisibility(false);
             this.showMap();
           }
         }
@@ -109,6 +114,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.map = map;
   }
 
+  setMarkerVisibility(visible: boolean) {
+    this.map?.getStyle().layers?.forEach(layer => {
+      if (['clusters', 'cluster-count', 'markers'].includes(layer.id)) {
+        console.log('!layer', layer);
+        this.map?.setLayoutProperty(
+          layer.id,
+          'visibility',
+          visible ? 'visible' : 'none'
+        );
+      }
+    });
+  }
+
   mapList(mapList: MapMenu[] ) {
     // if (mapList) {
     //   this.mapMenu = mapList;
@@ -121,15 +139,28 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showMap() {
     // console.log('>>1>>>', this.map?.getStyle().layers);
+    // this.map?.on('load', () => {
+    //   console.log('>>1a>load>>', this.map?.getStyle().layers);
+    // });
 
     //////////////////////////
     this.map?.on('idle', () => {
       // map.getCanvas().toDataURL()
-      // console.log('>>1b>>>', this.map?.getStyle().layers);
       // This needs to be made generic
       this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
+      this.setMarkerVisibility(true);
     });
     //////////////////////////
+    // this.map.on('style.load', function() {
+    //   this.map.on('click', function(e) {
+    //     var coordinates = e.lngLat;
+    //     new mapboxgl.Popup()
+    //       .setLngLat(coordinates)
+    //       .setHTML('you clicked here: <br/>' + coordinates)
+    //       .addTo(this.map);
+    //   });
+    // });
+    ////
 
     if (this.thisMap)
       this.mapParams['center'] = this.thisMap?.mapbox.center || environment.init.map.center;
