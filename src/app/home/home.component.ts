@@ -49,6 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   modalImageId = "modalImage";
   pageTitle = '';
   mapMenu: MapMenu[] = [];
+  hideMarkers = false;
+  markersHidden = false;
 
   mapsSubscription: Subscription;
 
@@ -77,7 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('Specific map data loaded');
         console.log('>>this.map>>', this.map?.getStyle().layers);
 
-        this.setMarkerVisibility(false);
+        this.setMarkerVisibility(false, true);
 
         if (this.thisMap && this.thisMap['mapbox']) {
           this.pageTitle = this.thisMap.title;
@@ -94,7 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           if (this.thisMap && this.thisMap['mapbox']) {
             console.log('Initial map data loaded', this.thisMap);
             this.pageTitle = this.thisMap.title;
-            this.setMarkerVisibility(false);
+            this.setMarkerVisibility(false, true);
             this.showMap();
           }
         }
@@ -114,17 +116,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.map = map;
   }
 
-  setMarkerVisibility(visible: boolean) {
-    this.map?.getStyle().layers?.forEach(layer => {
-      if (['clusters', 'cluster-count', 'markers'].includes(layer.id)) {
-        console.log('!layer', layer);
-        this.map?.setLayoutProperty(
-          layer.id,
-          'visibility',
-          visible ? 'visible' : 'none'
-        );
-      }
-    });
+  setMarkerVisibility(visible: boolean, forceRefresh?: boolean) {
+    if (this.markersHidden !== visible || forceRefresh) {
+      this.markersHidden = visible;
+      this.map?.getStyle().layers?.forEach(layer => {
+        if (['clusters', 'cluster-count', 'markers'].includes(layer.id)) {
+          console.log('!layer', layer);
+          this.map?.setLayoutProperty(
+            layer.id,
+            'visibility',
+            visible ? 'visible' : 'none'
+          );
+        }
+      });
+    }
   }
 
   mapList(mapList: MapMenu[] ) {
@@ -150,14 +155,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.map?.moveLayer('raster-layer-RGB-iancollis-8iwnwpnb', 'clusters');
       this.setMarkerVisibility(true);
     });
+
     //////////////////////////
-    // this.map.on('style.load', function() {
-    //   this.map.on('click', function(e) {
-    //     var coordinates = e.lngLat;
-    //     new mapboxgl.Popup()
-    //       .setLngLat(coordinates)
-    //       .setHTML('you clicked here: <br/>' + coordinates)
-    //       .addTo(this.map);
+    // this.map?.on('style.load', function() {
+    //   this.map?.on('click', function(e) {
+    //     // var coordinates = e.lngLat;
+    //     console.log(e.lngLat);
+    //     // new mapboxgl.Popup()
+    //     //   .setLngLat(coordinates)
+    //     //   .setHTML('you clicked here: <br/>' + coordinates)
+    //     //   .addTo(this.map);
     //   });
     // });
     ////
@@ -167,6 +174,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.mapParams['zoom'] = this.thisMap?.mapbox.zoom || environment.init.map.zoom;
       this.mapParams['style'] = this.thisMap?.mapbox.style || environment.init.map.style;
   }
+
+  // testClick(e: MapLayerMouseEvent) {
+  //   console.log(e.lngLat);
+  // }
 
   imageLoaded(key: any, testId: any) {
     // console.log('loaded', key, 'formatKeys', this.formatKeys, 'id', testId);
